@@ -16,7 +16,12 @@ public class MainWindow extends JFrame implements ActionListener {
         DELETE,
         UPDATE,
         SELECT,
-        EXIT
+        PROJECT,
+        JOIN,
+        AGGREGATION,
+        NESTED_AGGREGATION,
+        DIVISION,
+        EXIT,
     }
 
     // components of the login window
@@ -59,6 +64,16 @@ public class MainWindow extends JFrame implements ActionListener {
         placeButton(c, gb, contentPane, Actions.UPDATE);
         // place the select button
         placeButton(c, gb, contentPane, Actions.SELECT);
+        // place the project button
+        placeButton(c, gb, contentPane, Actions.PROJECT);
+        // place the join button
+        placeButton(c, gb, contentPane, Actions.JOIN);
+        // place the aggregation button
+        placeButton(c, gb, contentPane, Actions.AGGREGATION);
+        // place the nested aggregation button
+        placeButton(c, gb, contentPane, Actions.NESTED_AGGREGATION);
+        // place the division button
+        placeButton(c, gb, contentPane, Actions.DIVISION);
         // place the exit button
         placeButton(c, gb, contentPane, Actions.EXIT);
 
@@ -79,7 +94,6 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // make the window visible
         this.setVisible(true);
-
     }
 
     @Override
@@ -92,6 +106,16 @@ public class MainWindow extends JFrame implements ActionListener {
             System.out.println("Update");
         } else if (e.getActionCommand() == Actions.SELECT.name()) {
             System.out.println("Select");
+        } else if (e.getActionCommand() == Actions.PROJECT.name()) {
+            System.out.println("Project");
+        } else if (e.getActionCommand() == Actions.JOIN.name()) {
+            System.out.println("Join");
+        } else if (e.getActionCommand() == Actions.AGGREGATION.name()) {
+            System.out.println("Aggregation");
+        } else if (e.getActionCommand() == Actions.NESTED_AGGREGATION.name()) {
+            System.out.println("Nested Aggregation");
+        } else if (e.getActionCommand() == Actions.DIVISION.name()) {
+            System.out.println("Division");
         } else if(e.getActionCommand() == Actions.EXIT.name()) {
             System.out.println("Exiting");
             delegate.mainWindowFinished();
