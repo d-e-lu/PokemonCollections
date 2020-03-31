@@ -3,6 +3,7 @@ package ca.ubc.cs304.controller;
 import ca.ubc.cs304.database.DatabaseConnectionHandler;
 import ca.ubc.cs304.delegates.LoginWindowDelegate;
 import ca.ubc.cs304.delegates.MainWindowDelegate;
+import ca.ubc.cs304.model.PokemonModel;
 import ca.ubc.cs304.ui.LoginWindow;
 import ca.ubc.cs304.ui.MainWindow;
 
@@ -19,8 +20,10 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
     }
 
     private void start() {
-        loginWindow = new LoginWindow();
-        loginWindow.showFrame(this);
+        mainWindow = new MainWindow();
+        mainWindow.showFrame(this);
+        //loginWindow = new LoginWindow();
+        //loginWindow.showFrame(this);
     }
 
     /**
@@ -48,6 +51,9 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
         }
     }
 
+    public void insert(PokemonModel p) {
+        // Do something dbHandler
+    }
     /**
      * MainWindowDelegate Implementation
      *
