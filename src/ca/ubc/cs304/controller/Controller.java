@@ -20,10 +20,8 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
     }
 
     private void start() {
-        mainWindow = new MainWindow();
-        mainWindow.showFrame(this);
-        //loginWindow = new LoginWindow();
-        //loginWindow.showFrame(this);
+        loginWindow = new LoginWindow();
+        loginWindow.showFrame(this);
     }
 
     /**
