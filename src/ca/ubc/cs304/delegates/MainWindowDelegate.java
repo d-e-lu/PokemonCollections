@@ -10,6 +10,7 @@ public interface MainWindowDelegate {
     public PokemonModel[] delete(int pokemonId);
     public void update(PokemonModel p);
     public String[] select(String attribute_to_show, String table, String attribute_to_filter, int threshold);
+    public String[] project(String attribute, String table);
     public void countPokemonOnWeight(double threshold);
 }
 

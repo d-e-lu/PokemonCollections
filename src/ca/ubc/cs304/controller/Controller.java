@@ -78,10 +78,23 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
         System.out.println();
     }
 
-//    TODO
-//    public String[] projectTable(String attribute, String table) {
-//
-//    }
+    /**
+     * Project Operation on Any Table
+     *
+     * @param attribute
+     * @param table
+     */
+    public String[] project(String attribute, String table) {
+        String[] results = dbHandler.projectTable(attribute, table);
+
+        for (int i = 0; i < results.length; i++) {
+            String curr = results[i];
+            System.out.print(curr);
+            System.out.println();
+        }
+
+        return results;
+    }
 
     /**
      * Insert Operation for Pokemon Table
