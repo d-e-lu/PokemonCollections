@@ -4,6 +4,9 @@ CREATE TABLE ability (
     PRIMARY KEY (ability_name)
 );
 
+INSERT INTO ability VALUES ('Fire', 'Shoot a fire ball');
+INSERT INTO ability VALUES ('Ice', 'Shoot an ice ball');
+
 CREATE TABLE pokemon (
     pokemon_id INTEGER,
     name VARCHAR(20) NOT NULL UNIQUE,
@@ -18,6 +21,9 @@ CREATE TABLE pokemon (
     PRIMARY KEY (pokemon_id),
     FOREIGN KEY (ability_name) REFERENCES ability
 );
+
+INSERT INTO pokemon VALUES (1, 'Pikachu',12.2, 100,2,3,4,5,6,'Fire');
+INSERT INTO pokemon VALUES (2, 'Pikachu2',20.2, 200,2,3,4,5,6,'Ice');
 
 CREATE TABLE area (
     region VARCHAR(20),

@@ -3,7 +3,10 @@ package ca.ubc.cs304.controller;
 import ca.ubc.cs304.database.DatabaseConnectionHandler;
 import ca.ubc.cs304.delegates.LoginWindowDelegate;
 import ca.ubc.cs304.delegates.MainWindowDelegate;
+
 import ca.ubc.cs304.model.PokemonModel;
+import ca.ubc.cs304.model.AbilityModel;
+
 import ca.ubc.cs304.ui.LoginWindow;
 import ca.ubc.cs304.ui.MainWindow;
 
@@ -20,10 +23,8 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
     }
 
     private void start() {
-        //loginWindow = new LoginWindow();
-        //loginWindow.showFrame(this);
-        mainWindow = new MainWindow();
-        mainWindow.showFrame(this);
+        loginWindow = new LoginWindow();
+        loginWindow.showFrame(this);
     }
 
     /**
@@ -48,6 +49,26 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
                 System.out.println("You have exceeded your number of allowed attempts");
                 System.exit(-1);
             }
+        }
+    }
+
+    /**
+     * Select Operation on Any Table
+     *
+     * @param attribute_to_show
+     * @param table
+     * @param attribute_to_filter
+     * @param threshold
+     */
+    public void selectTable(String attribute_to_show, String table, String attribute_to_filter, int threshold) {
+        String[] results = dbHandler.selectTable(attribute_to_show, table, attribute_to_filter, threshold);
+
+        // show results array in the terminal
+        for (int i = 0; i < results.length; i++) {
+            String current_value = results[i];
+
+            System.out.print(current_value);
+            System.out.println();
         }
     }
 
