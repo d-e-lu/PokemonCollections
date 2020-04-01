@@ -62,10 +62,13 @@ public class DatabaseConnectionHandler {
     }
 
     /**
-     * Delete operation
-     * @param pokemonId
+     * Delete Operation on Pokemon Table
+     *
+     * If user input pokemonId that does not exist or has already been deleted,
+     * do nothing, and print warning
+     *
      */
-    public void deleteTable(int pokemonId) {
+    public void delete(int pokemonId) {
         try {
             String query = "DELETE FROM pokemon WHERE pokemon_id = " + Integer.toString(pokemonId);
             PreparedStatement ps = connection.prepareStatement(query);

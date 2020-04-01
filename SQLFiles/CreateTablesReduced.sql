@@ -22,8 +22,12 @@ CREATE TABLE pokemon (
     FOREIGN KEY (ability_name) REFERENCES ability
 );
 
-INSERT INTO pokemon VALUES (1, 'Pikachu',12.2, 100,2,3,4,5,6,'Fire');
-INSERT INTO pokemon VALUES (2, 'Pikachu2',20.2, 200,2,3,4,5,6,'Ice');
+INSERT INTO pokemon VALUES (1, 'Pikachu', 12.2, 100, 2, 3, 41, 5, 60, 'Fire');
+INSERT INTO pokemon VALUES (2, 'Pikachu2',20.2, 200, 2, 31, 41, 55, 26, 'Ice');
+INSERT INTO pokemon VALUES (3, 'Pikachu3',10.2, 0, 2, 3, 41, 5, 64, 'Ice');
+INSERT INTO pokemon VALUES (4, 'Pikachu4',200.2, 10, 21, 3, 24, 54, 16, 'Ice');
+INSERT INTO pokemon VALUES (5, 'Pikachu5',60.2, 0, 4, 23, 41, 45, 26, 'Fire');
+
 
 CREATE TABLE area (
     region VARCHAR(20),

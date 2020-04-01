@@ -82,9 +82,13 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
         dbHandler.insertTable(p);
     }
 
+    /**
+     * Delete Operation for Pokemon Table, only delete 1 pokemonId at a time
+     *
+     * @param pokemonId
+     */
     public void delete(int pokemonId) {
-        // Do something dbHandler
-        dbHandler.deleteTable(pokemonId);
+        dbHandler.delete(pokemonId);
     }
 
     public void update(PokemonModel p) {

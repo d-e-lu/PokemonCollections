@@ -107,6 +107,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // make the window visible
         this.setVisible(true);
+
     }
 
     @Override
