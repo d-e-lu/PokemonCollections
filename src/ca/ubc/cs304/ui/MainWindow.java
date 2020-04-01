@@ -196,6 +196,24 @@ public class MainWindow extends JFrame implements ActionListener {
         return input;
     }
 
+    private double readDouble(boolean allowEmpty) {
+        String line = null;
+        double input = Double.valueOf(INVALID_INPUT);
+        try {
+            line = bufferedReader.readLine();
+            input = Double.parseDouble(line);
+        } catch (IOException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        } catch (NumberFormatException e) {
+            if (allowEmpty && line.length() == 0) {
+                input = Double.valueOf(EMPTY_INPUT);
+            } else {
+                System.out.println(WARNING_TAG + " Your input was not a double");
+            }
+        }
+        return input;
+    }
+
     private String readLine() {
         String result = null;
         try {

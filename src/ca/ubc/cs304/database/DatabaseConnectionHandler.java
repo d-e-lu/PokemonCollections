@@ -90,22 +90,23 @@ public class DatabaseConnectionHandler {
     }
 
     /**
-     * Insert operation
-     * @param p
+     * Insert Operation on Pokemon Table
+     *
      */
     public void insertTable(PokemonModel p) {
         try {
             String query = "INSERT INTO pokemon VALUES ("
-                    + Integer.toString(p.getPokemon_id()) + ","
-                    + p.getName() + ","
+                    + Integer.toString(p.getPokemon_id()) + ",'"
+                    + p.getName() + "',"
                     + Double.toString(p.getWeight()) + ","
                     + Integer.toString(p.getAttack()) + ","
                     + Integer.toString(p.getSpecial_defense()) + ","
                     + Integer.toString(p.getSpeed()) + ","
                     + Integer.toString(p.getHp()) + ","
                     + Integer.toString(p.getDefense()) + ","
-                    + Integer.toString(p.getSpecial_attack()) + ","
-                    + p.getAbility_name() + ")";
+                    + Integer.toString(p.getSpecial_attack()) + ",'"
+                    + p.getAbility_name() + "')";
+
             PreparedStatement ps = connection.prepareStatement(query);
 
             ps.executeUpdate();

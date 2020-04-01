@@ -77,8 +77,12 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
 //
 //    }
 
+    /**
+     * Insert Operation for Pokemon Table
+     *
+     * @param p
+     */
     public void insert(PokemonModel p) {
-        // Do something dbHandler
         dbHandler.insertTable(p);
     }
 
