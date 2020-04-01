@@ -114,7 +114,7 @@ public class DatabaseConnectionHandler {
     }
 
 //    TODO
-//    public String[] projectTable(?) {
+//    public String[] projectTable(String attribute, String table) {
 //
 //    }
 

@@ -73,7 +73,7 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
     }
 
 //    TODO
-//    public String[] projectTable(?) {
+//    public String[] projectTable(String attribute, String table) {
 //
 //    }
 
