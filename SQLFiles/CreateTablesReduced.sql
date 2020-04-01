@@ -36,6 +36,7 @@ CREATE TABLE found_in (
     region VARCHAR(20),
     location VARCHAR(40),
     PRIMARY KEY (pokemon_id, region, location),
-    FOREIGN KEY (pokemon_id) REFERENCES pokemon,
+    FOREIGN KEY (pokemon_id) REFERENCES pokemon
+                      ON DELETE CASCADE,
     FOREIGN KEY (region, location) REFERENCES area
 );

@@ -72,12 +72,19 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
         }
     }
 
+//    TODO
+//    public String[] projectTable(?) {
+//
+//    }
+
     public void insert(PokemonModel p) {
         // Do something dbHandler
+        dbHandler.insertTable(p);
     }
 
     public void delete(int pokemonId) {
         // Do something dbHandler
+        dbHandler.deleteTable(pokemonId);
     }
 
     public void update(PokemonModel p) {

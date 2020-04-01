@@ -7,6 +7,7 @@ import ca.ubc.cs304.model.PokemonModel;
 import ca.ubc.cs304.model.AbilityModel;
 import ca.ubc.cs304.model.AreaModel;
 import ca.ubc.cs304.model.FoundInModel;
+import oracle.jdbc.proxy.annotation.Pre;
 
 /**
  * This class handles all database related transactions
@@ -59,6 +60,63 @@ public class DatabaseConnectionHandler {
 
         return result.toArray(new String[result.size()]);
     }
+
+    /**
+     * Delete operation
+     * @param pokemonId
+     */
+    public void deleteTable(int pokemonId) {
+        try {
+            String query = "DELETE FROM pokemon WHERE pokemon_id = " + Integer.toString(pokemonId);
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            int changes = ps.executeUpdate(); // check how many rows were deleted
+            if (changes == 0) {
+                System.out.println(WARNING_TAG + "Pokemon ID: " + pokemonId + " does not exist. Please try again.");
+            }
+            connection.commit();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println((EXCEPTION_TAG + " " + e.getMessage()));
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                System.out.println(EXCEPTION_TAG + " " + e1.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Insert operation
+     * @param p
+     */
+    public void insertTable(PokemonModel p) {
+        try {
+            String query = "INSERT INTO pokemon VALUES ("
+                    + Integer.toString(p.getPokemon_id()) + ","
+                    + p.getName() + ","
+                    + Double.toString(p.getWeight()) + ","
+                    + Integer.toString(p.getAttack()) + ","
+                    + Integer.toString(p.getSpecial_defense()) + ","
+                    + Integer.toString(p.getSpeed()) + ","
+                    + Integer.toString(p.getHp()) + ","
+                    + Integer.toString(p.getDefense()) + ","
+                    + Integer.toString(p.getSpecial_attack()) + ","
+                    + p.getAbility_name() + ")";
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            ps.executeUpdate();
+            connection.commit();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+//    TODO
+//    public String[] projectTable(?) {
+//
+//    }
 
     public void close() {
         try {
