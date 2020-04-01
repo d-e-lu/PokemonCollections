@@ -109,16 +109,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // make the window visible
         this.setVisible(true);
-            /**
-             *  Sample Terminal Implementation
-             */
-            bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-            int pokeid = (INVALID_INPUT);
-            while (pokeid == (INVALID_INPUT)) {
-                System.out.print("Please enter pokeid: ");
-                pokeid = readInteger(false);
-            }
-            delegate.delete(pokeid);
+
     }
 
     @Override

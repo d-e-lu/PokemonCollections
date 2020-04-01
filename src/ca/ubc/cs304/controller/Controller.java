@@ -88,8 +88,9 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
      *
      * @param p
      */
-    public void insert(PokemonModel p) {
-        dbHandler.insertTable(p);
+    public PokemonModel[] insert(PokemonModel p) {
+        PokemonModel[] models = dbHandler.insertTable(p);
+        return models;
     }
 
     /**
@@ -99,20 +100,6 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
      */
     public PokemonModel[] delete(int pokemonId) {
         PokemonModel[] models = dbHandler.delete(pokemonId);
-
-        for (int i = 0; i < models.length; i++) {
-            PokemonModel model = models[i];
-
-            // simplified output formatting; truncation may occur
-            System.out.printf("%-10.10s", model.getPokemon_id());
-            System.out.printf("%-20.20s", model.getName());
-            System.out.printf("%-30.30s", model.getWeight());
-            System.out.printf("%-40.40s", model.getAttack());
-            System.out.printf("%-50.50s", model.getSpecial_defense());
-
-            System.out.println();
-        }
-
         return models;
     }
 
