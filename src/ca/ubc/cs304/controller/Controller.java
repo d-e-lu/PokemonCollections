@@ -60,16 +60,9 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
      * @param attribute_to_filter
      * @param threshold
      */
-    public void selectTable(String attribute_to_show, String table, String attribute_to_filter, int threshold) {
+    public String[] select(String attribute_to_show, String table, String attribute_to_filter, int threshold) {
         String[] results = dbHandler.selectTable(attribute_to_show, table, attribute_to_filter, threshold);
-
-        // show results array in the terminal
-        for (int i = 0; i < results.length; i++) {
-            String current_value = results[i];
-
-            System.out.print(current_value);
-            System.out.println();
-        }
+        return results;
     }
 
     public void insert(PokemonModel p) {

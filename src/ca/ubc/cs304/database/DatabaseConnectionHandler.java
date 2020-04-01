@@ -54,7 +54,9 @@ public class DatabaseConnectionHandler {
             }
 
         } catch (SQLException e) {
+            String[] exception = {EXCEPTION_TAG + " " + e.getMessage()};
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            return exception;
         }
 
         return result.toArray(new String[result.size()]);

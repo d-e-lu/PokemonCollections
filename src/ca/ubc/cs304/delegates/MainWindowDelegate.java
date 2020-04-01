@@ -9,6 +9,6 @@ public interface MainWindowDelegate {
     public void insert(PokemonModel p);
     public void delete(int pokemonId);
     public void update(PokemonModel p);
-    public void selectTable(String attribute_to_show, String table, String attribute_to_filter, int threshold);
+    public String[] select(String attribute_to_show, String table, String attribute_to_filter, int threshold);
 }
 
