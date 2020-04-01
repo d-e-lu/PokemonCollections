@@ -2,7 +2,7 @@ package ca.ubc.cs304.ui;
 
 import ca.ubc.cs304.delegates.MainWindowDelegate;
 import ca.ubc.cs304.model.PokemonModel;
-import com.sun.org.apache.xpath.internal.operations.Div;
+//import com.sun.org.apache.xpath.internal.operations.Div;
 
 import javax.swing.*;
 import java.awt.*;
@@ -109,6 +109,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // make the window visible
         this.setVisible(true);
+
     }
 
     @Override
@@ -152,10 +153,66 @@ public class MainWindow extends JFrame implements ActionListener {
             System.out.println("Join");
         } else if (e.getActionCommand().equals(Actions.AGGREGATION.name())) {
             System.out.println("Aggregate");
+            // TODO
+//            /**
+//             *  Sample Terminal Implementation
+//             */
+//            bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//            double threshold = Double.valueOf(INVALID_INPUT);
+//            while (threshold == Double.valueOf(INVALID_INPUT)) {
+//                System.out.print("Please enter threhold: ");
+//                threshold = readDouble(false);
+//            }
+//            delegate.countPokemonOnWeight(threshold);
         } else if (e.getActionCommand().equals(Actions.NESTED_AGGREGATION.name())) {
             System.out.println("Nested Aggregation");
         } else if (e.getActionCommand().equals(Actions.DIVISION.name())) {
             System.out.println("Division");
         }
+    }
+    private int readInteger(boolean allowEmpty) {
+        String line = null;
+        int input = INVALID_INPUT;
+        try {
+            line = bufferedReader.readLine();
+            input = Integer.parseInt(line);
+        } catch (IOException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        } catch (NumberFormatException e) {
+            if (allowEmpty && line.length() == 0) {
+                input = EMPTY_INPUT;
+            } else {
+                System.out.println(WARNING_TAG + " Your input was not an integer");
+            }
+        }
+        return input;
+    }
+
+    private double readDouble(boolean allowEmpty) {
+        String line = null;
+        double input = Double.valueOf(INVALID_INPUT);
+        try {
+            line = bufferedReader.readLine();
+            input = Double.parseDouble(line);
+        } catch (IOException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        } catch (NumberFormatException e) {
+            if (allowEmpty && line.length() == 0) {
+                input = Double.valueOf(EMPTY_INPUT);
+            } else {
+                System.out.println(WARNING_TAG + " Your input was not a double");
+            }
+        }
+        return input;
+    }
+
+    private String readLine() {
+        String result = null;
+        try {
+            result = bufferedReader.readLine();
+        } catch (IOException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+        return result;
     }
 }

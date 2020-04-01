@@ -65,12 +65,40 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
         return results;
     }
 
-    public void insert(PokemonModel p) {
-        // Do something dbHandler
+    /**
+     * Count Number of Pokemon that is heavier or equal to threshold
+     *
+     * @param threshold
+     */
+    public void countPokemonOnWeight(double threshold) {
+        int result = dbHandler.countPokemonOnWeight(threshold);
+
+        // show result number in the terminal
+        System.out.print("Total number of Pokemon heavier than " + threshold + " is " + result);
+        System.out.println();
     }
 
+//    TODO
+//    public String[] projectTable(String attribute, String table) {
+//
+//    }
+
+    /**
+     * Insert Operation for Pokemon Table
+     *
+     * @param p
+     */
+    public void insert(PokemonModel p) {
+        dbHandler.insertTable(p);
+    }
+
+    /**
+     * Delete Operation for Pokemon Table, only delete 1 pokemonId at a time
+     *
+     * @param pokemonId
+     */
     public void delete(int pokemonId) {
-        // Do something dbHandler
+        dbHandler.delete(pokemonId);
     }
 
     public void update(PokemonModel p) {

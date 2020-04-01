@@ -7,6 +7,7 @@ import ca.ubc.cs304.model.PokemonModel;
 import ca.ubc.cs304.model.AbilityModel;
 import ca.ubc.cs304.model.AreaModel;
 import ca.ubc.cs304.model.FoundInModel;
+import oracle.jdbc.proxy.annotation.Pre;
 
 /**
  * This class handles all database related transactions
@@ -61,6 +62,90 @@ public class DatabaseConnectionHandler {
 
         return result.toArray(new String[result.size()]);
     }
+
+    /**
+     * Count # of pokemon >= threshold weight, if none exist, function
+     * returns 0
+     *
+     */
+    public int countPokemonOnWeight(double threshold) {
+        try {
+            String query = "SELECT count(*) AS \"number\" FROM pokemon WHERE weight >= " + Double.toString(threshold);
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            connection.commit();
+
+            if (rs.next()) {
+               return Integer.parseInt(rs.getString("number"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return 0;
+    }
+
+    /**
+     * Delete Operation on Pokemon Table
+     *
+     * If user input pokemonId that does not exist or has already been deleted,
+     * do nothing, and print warning
+     *
+     */
+    public void delete(int pokemonId) {
+        try {
+            String query = "DELETE FROM pokemon WHERE pokemon_id = " + Integer.toString(pokemonId);
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            int changes = ps.executeUpdate(); // check how many rows were deleted
+            if (changes == 0) {
+                System.out.println(WARNING_TAG + "Pokemon ID: " + pokemonId + " does not exist. Please try again.");
+            }
+            connection.commit();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println((EXCEPTION_TAG + " " + e.getMessage()));
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                System.out.println(EXCEPTION_TAG + " " + e1.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Insert Operation on Pokemon Table
+     *
+     */
+    public void insertTable(PokemonModel p) {
+        try {
+            String query = "INSERT INTO pokemon VALUES ("
+                    + Integer.toString(p.getPokemon_id()) + ",'"
+                    + p.getName() + "',"
+                    + Double.toString(p.getWeight()) + ","
+                    + Integer.toString(p.getAttack()) + ","
+                    + Integer.toString(p.getSpecial_defense()) + ","
+                    + Integer.toString(p.getSpeed()) + ","
+                    + Integer.toString(p.getHp()) + ","
+                    + Integer.toString(p.getDefense()) + ","
+                    + Integer.toString(p.getSpecial_attack()) + ",'"
+                    + p.getAbility_name() + "')";
+
+            PreparedStatement ps = connection.prepareStatement(query);
+
+            ps.executeUpdate();
+            connection.commit();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+    }
+
+//    TODO
+//    public String[] projectTable(String attribute, String table) {
+//
+//    }
 
     public void close() {
         try {

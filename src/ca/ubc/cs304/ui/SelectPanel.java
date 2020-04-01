@@ -11,6 +11,7 @@ public class SelectPanel extends DefaultPanel {
     private JTextField table1Field;
     private JTextField field2;
     private JTextField thresholdField;
+    private JTextField field3;
 
     public SelectPanel(JFrame frame, String resultButtonCommandName) {
         super();
