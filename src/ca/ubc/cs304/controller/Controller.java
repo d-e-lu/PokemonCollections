@@ -72,6 +72,19 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
         }
     }
 
+    /**
+     * Count Number of Pokemon that is heavier or equal to threshold
+     *
+     * @param threshold
+     */
+    public void countPokemonOnWeight(double threshold) {
+        int result = dbHandler.countPokemonOnWeight(threshold);
+
+        // show result number in the terminal
+        System.out.print("Total number of Pokemon heavier than " + threshold + " is " + result);
+        System.out.println();
+    }
+
 //    TODO
 //    public String[] projectTable(String attribute, String table) {
 //

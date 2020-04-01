@@ -62,6 +62,29 @@ public class DatabaseConnectionHandler {
     }
 
     /**
+     * Count # of pokemon >= threshold weight, if none exist, function
+     * returns 0
+     *
+     */
+    public int countPokemonOnWeight(double threshold) {
+        try {
+            String query = "SELECT count(*) AS \"number\" FROM pokemon WHERE weight >= " + Double.toString(threshold);
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            connection.commit();
+
+            if (rs.next()) {
+               return Integer.parseInt(rs.getString("number"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return 0;
+    }
+
+    /**
      * Delete Operation on Pokemon Table
      *
      * If user input pokemonId that does not exist or has already been deleted,

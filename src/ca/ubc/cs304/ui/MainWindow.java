@@ -171,6 +171,17 @@ public class MainWindow extends JFrame implements ActionListener {
             System.out.println("Join");
         } else if (e.getActionCommand().equals(Actions.AGGREGATION.name())) {
             System.out.println("Aggregate");
+            // TODO
+//            /**
+//             *  Sample Terminal Implementation
+//             */
+//            bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//            double threshold = Double.valueOf(INVALID_INPUT);
+//            while (threshold == Double.valueOf(INVALID_INPUT)) {
+//                System.out.print("Please enter threhold: ");
+//                threshold = readDouble(false);
+//            }
+//            delegate.countPokemonOnWeight(threshold);
         } else if (e.getActionCommand().equals(Actions.NESTED_AGGREGATION.name())) {
             System.out.println("Nested Aggregation");
         } else if (e.getActionCommand().equals(Actions.DIVISION.name())) {
