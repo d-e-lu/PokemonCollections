@@ -2,6 +2,7 @@ package ca.ubc.cs304.ui;
 
 import ca.ubc.cs304.delegates.MainWindowDelegate;
 import ca.ubc.cs304.model.PokemonModel;
+import com.sun.org.apache.xpath.internal.operations.Div;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,61 +31,18 @@ public class MainWindow extends JFrame implements ActionListener {
     private JTabbedPane tabbedPane;
     private JPanel resultPanel;
     private InsertPanel insertPanel;
-
-    private JPanel makeDefaultPanel() {
-        JPanel panel = new JPanel(false);
-        panel.setLayout(new BorderLayout());
-        JButton button = new JButton("Result");
-        button.setActionCommand("Result");
-        panel.add(button, BorderLayout.PAGE_END);
-        button.addActionListener(this);
-        return panel;
-    }
-
-    private JComponent makeDeletePanel() {
-        JPanel panel = makeDefaultPanel();
-        return panel;
-    }
-
-    private JComponent makeUpdatePanel() {
-        JPanel panel = makeDefaultPanel();
-        return panel;
-    }
-
-    private JComponent makeSelectPanel() {
-        JPanel panel = makeDefaultPanel();
-        return panel;
-    }
-
-    private JComponent makeProjectPanel() {
-        JPanel panel = makeDefaultPanel();
-        return panel;
-    }
-
-    private JComponent makeJoinPanel() {
-        JPanel panel = makeDefaultPanel();
-        return panel;
-    }
-
-    private JComponent makeAggregatePanel() {
-        JPanel panel = makeDefaultPanel();
-        return panel;
-    }
-
-    private JComponent makeNestedAggregatePanel() {
-        JPanel panel = makeDefaultPanel();
-        return panel;
-    }
-
-    private JComponent makeDivisionPanel() {
-        JPanel panel = makeDefaultPanel();
-        return panel;
-    }
-
+    private DeletePanel deletePanel;
+    private InsertPanel updatePanel;
+    private SelectPanel selectPanel;
+    private ProjectPanel projectPanel;
+    private JoinPanel joinPanel;
+    private AggregationPanel aggregationPanel;
+    private NestedAggregationPanel nestedAggregationPanel;
+    private DivisionPanel divisionPanel;
 
     public void showFrame(MainWindowDelegate delegate) {
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent e) {
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
                 delegate.mainWindowFinished();
                 System.exit(0);
             }
@@ -104,29 +62,29 @@ public class MainWindow extends JFrame implements ActionListener {
         insertPanel = new InsertPanel(this, Actions.INSERT.name());
         tabbedPane.addTab(Actions.INSERT.name(), insertPanel);
 
-        JComponent panel2 = makeDeletePanel();
-        tabbedPane.addTab(Actions.DELETE.name(), panel2);
+        deletePanel = new DeletePanel(this, Actions.DELETE.name());
+        tabbedPane.addTab(Actions.DELETE.name(), deletePanel);
 
-        JComponent panel3 = makeUpdatePanel();
-        tabbedPane.addTab(Actions.UPDATE.name(), panel3);
+        updatePanel = new InsertPanel(this, Actions.UPDATE.name());
+        tabbedPane.addTab(Actions.UPDATE.name(), updatePanel);
 
-        JComponent panel4 = makeSelectPanel();
-        tabbedPane.addTab(Actions.SELECT.name(), panel4);
+        selectPanel = new SelectPanel(this, Actions.SELECT.name());
+        tabbedPane.addTab(Actions.SELECT.name(), selectPanel);
 
-        JComponent panel5 = makeProjectPanel();
-        tabbedPane.addTab(Actions.PROJECT.name(), panel5);
+        projectPanel = new ProjectPanel(this, Actions.PROJECT.name());
+        tabbedPane.addTab(Actions.PROJECT.name(), projectPanel);
 
-        JComponent panel6 = makeJoinPanel();
-        tabbedPane.addTab(Actions.JOIN.name(), panel6);
+        joinPanel = new JoinPanel(this, Actions.JOIN.name());
+        tabbedPane.addTab(Actions.JOIN.name(), joinPanel);
 
-        JComponent panel7 = makeAggregatePanel();
-        tabbedPane.addTab(Actions.AGGREGATION.name(), panel7);
+        aggregationPanel = new AggregationPanel(this, Actions.AGGREGATION.name());
+        tabbedPane.addTab(Actions.AGGREGATION.name(), aggregationPanel);
 
-        JComponent panel8 = makeNestedAggregatePanel();
-        tabbedPane.addTab(Actions.NESTED_AGGREGATION.name(), panel8);
+        nestedAggregationPanel = new NestedAggregationPanel(this, Actions.NESTED_AGGREGATION.name());
+        tabbedPane.addTab(Actions.NESTED_AGGREGATION.name(), nestedAggregationPanel);
 
-        JComponent panel9 = makeDivisionPanel();
-        tabbedPane.addTab(Actions.DIVISION.name(), panel9);
+        divisionPanel = new DivisionPanel(this, Actions.DIVISION.name());
+        tabbedPane.addTab(Actions.DIVISION.name(), divisionPanel);
 
         contentPane.add(tabbedPane);
         contentPane.add(resultPanel);
@@ -142,7 +100,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals(Actions.INSERT.name())) {
+        if (e.getActionCommand().equals(Actions.INSERT.name())) {
             PokemonModel p = insertPanel.createPokemonModel();
             if (p != null) {
                 delegate.insert(p);
@@ -150,7 +108,32 @@ public class MainWindow extends JFrame implements ActionListener {
                 // TODO: Handle if null or if database couldn't insert pokemon
                 System.out.println("Can't insert pokemon.");
             }
-
+        } else if (e.getActionCommand().equals(Actions.DELETE.name())) {
+            Integer pId = deletePanel.deletePokemon();
+            if (pId != null) {
+                delegate.delete(pId);
+            } else {
+                System.out.println("Can't delete pokemon.");
+            }
+        } else if (e.getActionCommand().equals(Actions.UPDATE.name())) {
+            PokemonModel p = insertPanel.createPokemonModel();
+            if (p != null) {
+                delegate.update(p);
+            } else {
+                System.out.println("Can't update pokemon.");
+            }
+        } else if (e.getActionCommand().equals(Actions.SELECT.name())) {
+            System.out.println("Select");
+        } else if (e.getActionCommand().equals(Actions.PROJECT.name())) {
+            System.out.println("Project");
+        } else if (e.getActionCommand().equals(Actions.JOIN.name())) {
+            System.out.println("Join");
+        } else if (e.getActionCommand().equals(Actions.AGGREGATION.name())) {
+            System.out.println("Aggregate");
+        } else if (e.getActionCommand().equals(Actions.NESTED_AGGREGATION.name())) {
+            System.out.println("Nested Aggregation");
+        } else if (e.getActionCommand().equals(Actions.DIVISION.name())) {
+            System.out.println("Division");
         }
     }
 }

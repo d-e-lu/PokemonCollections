@@ -20,8 +20,10 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
     }
 
     private void start() {
-        loginWindow = new LoginWindow();
-        loginWindow.showFrame(this);
+        //loginWindow = new LoginWindow();
+        //loginWindow.showFrame(this);
+        mainWindow = new MainWindow();
+        mainWindow.showFrame(this);
     }
 
     /**
@@ -52,6 +54,15 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
     public void insert(PokemonModel p) {
         // Do something dbHandler
     }
+
+    public void delete(int pokemonId) {
+        // Do something dbHandler
+    }
+
+    public void update(PokemonModel p) {
+        // Do something dbHandler
+    }
+
     /**
      * MainWindowDelegate Implementation
      *

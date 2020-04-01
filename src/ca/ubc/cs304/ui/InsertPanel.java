@@ -3,12 +3,9 @@ package ca.ubc.cs304.ui;
 import ca.ubc.cs304.model.PokemonModel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class InsertPanel extends JPanel {
-
-    private static final int TEXT_FIELD_WIDTH = 10;
+public class InsertPanel extends DefaultPanel {
 
     private JTextField pokemonIdField;
     private JTextField nameField;
@@ -21,23 +18,8 @@ public class InsertPanel extends JPanel {
     private JTextField specialAttackField;
     private JTextField abilityNameField;
 
-    private JButton result;
-
-    private void addInsertTextAndField(JLabel label, JTextField field, GridBagConstraints c, GridBagLayout gb, int y) {
-        c.gridy = y;
-        c.gridx = 0;
-        gb.setConstraints(label, c);
-        this.add(label);
-        c.gridx = 1;
-        gb.setConstraints(field, c);
-        this.add(field);
-    }
-
     public InsertPanel(JFrame frame, String resultButtonCommandName) {
-        GridBagLayout gb = new GridBagLayout();
-        this.setLayout(gb);
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
+        super();
 
         JLabel pokemonId = new JLabel("Enter pokemon id: ");
         JLabel name = new JLabel("Enter name: ");
@@ -62,24 +44,17 @@ public class InsertPanel extends JPanel {
         abilityNameField = new JTextField(TEXT_FIELD_WIDTH);
 
         int y = 0;
-        addInsertTextAndField(pokemonId, pokemonIdField, c, gb, y++);
-        addInsertTextAndField(name, nameField, c, gb, y++);
-        addInsertTextAndField(weight, weightField, c, gb, y++);
-        addInsertTextAndField(attack, attackField, c, gb, y++);
-        addInsertTextAndField(specialDefense, specialDefenseField, c, gb, y++);
-        addInsertTextAndField(speed, speedField, c, gb, y++);
-        addInsertTextAndField(hp, hpField, c, gb, y++);
-        addInsertTextAndField(defense, defenseField, c, gb, y++);
-        addInsertTextAndField(specialAttack, specialAttackField, c, gb, y++);
-        addInsertTextAndField(abilityName, abilityNameField, c, gb, y++);
-
-        result = new JButton("Result");
-        result.setActionCommand(resultButtonCommandName);
-        c.gridy = y;
-        c.gridx = 1;
-        gb.setConstraints(result, c);
-        this.add(result);
-        result.addActionListener((ActionListener) frame);
+        addTextAndField(pokemonId, pokemonIdField, c, gb, y++);
+        addTextAndField(name, nameField, c, gb, y++);
+        addTextAndField(weight, weightField, c, gb, y++);
+        addTextAndField(attack, attackField, c, gb, y++);
+        addTextAndField(specialDefense, specialDefenseField, c, gb, y++);
+        addTextAndField(speed, speedField, c, gb, y++);
+        addTextAndField(hp, hpField, c, gb, y++);
+        addTextAndField(defense, defenseField, c, gb, y++);
+        addTextAndField(specialAttack, specialAttackField, c, gb, y++);
+        addTextAndField(abilityName, abilityNameField, c, gb, y++);
+        addResultButton(resultButtonCommandName, y, (ActionListener) frame);
     }
 
     PokemonModel createPokemonModel() {
