@@ -3,7 +3,10 @@ package ca.ubc.cs304.controller;
 import ca.ubc.cs304.database.DatabaseConnectionHandler;
 import ca.ubc.cs304.delegates.LoginWindowDelegate;
 import ca.ubc.cs304.delegates.MainWindowDelegate;
+
 import ca.ubc.cs304.model.PokemonModel;
+import ca.ubc.cs304.model.AbilityModel;
+
 import ca.ubc.cs304.ui.LoginWindow;
 import ca.ubc.cs304.ui.MainWindow;
 
@@ -46,6 +49,31 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
                 System.out.println("You have exceeded your number of allowed attempts");
                 System.exit(-1);
             }
+        }
+    }
+
+    public void selectPokemon(String attribute_to_show, String attribute_to_filter, int threshold) {
+        String[] results = dbHandler.selectPokemon(attribute_to_show, attribute_to_filter, threshold);
+
+        for (int i = 0; i < results.length; i++) {
+            String current_value = results[i];
+
+            System.out.print(current_value);
+            System.out.println();
+
+        }
+    }
+
+    public void showTable() {
+        // Test on AbilityModel
+        AbilityModel[] models  = dbHandler.getTableInfo();
+        System.out.println("Hellos");
+        for (int i = 0; i < models.length; i++) {
+            AbilityModel model = models[i];
+
+            System.out.print(model.getName());
+            System.out.print(model.getDescription());
+            System.out.println();
         }
     }
 

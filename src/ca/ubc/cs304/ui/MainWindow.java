@@ -6,11 +6,21 @@ import ca.ubc.cs304.model.PokemonModel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class MainWindow extends JFrame implements ActionListener {
 
     private static final int FRAME_HEIGHT = 600;
     private static final int FRAME_WIDTH = 800;
+    private static final int INVALID_INPUT = Integer.MIN_VALUE;
+    private BufferedReader bufferedReader = null;
+    private static final int EMPTY_INPUT = 0;
+    private static final String WARNING_TAG = "[WARNING]";
+    private static final String EXCEPTION_TAG = "[EXCEPTION]";
+
+
 
     private enum Actions {
         INSERT,
@@ -94,6 +104,7 @@ public class MainWindow extends JFrame implements ActionListener {
         this.setLayout(new BorderLayout());
         this.delegate = delegate;
 
+
         JPanel contentPane = new JPanel(new GridLayout(1,2));
         this.setContentPane(contentPane);
 
@@ -138,6 +149,33 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // make the window visible
         this.setVisible(true);
+
+
+
+
+        /**
+         *  Testing
+         */
+        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String attribute_to_show = null;
+        while (attribute_to_show == null) {
+            System.out.print("Please enter the attribute_to_show: ");
+            attribute_to_show = readLine().trim();
+        }
+
+        String attribute_to_filter = null;
+        while (attribute_to_filter == null) {
+            System.out.print("Please enter the attribute_to_filter: ");
+            attribute_to_filter = readLine().trim();
+        }
+
+        int threshold = INVALID_INPUT;
+        while (threshold == INVALID_INPUT) {
+            System.out.print("Please enter threhold: ");
+            threshold = readInteger(false);
+        }
+        delegate.selectPokemon(attribute_to_show, attribute_to_filter, threshold);
+
     }
 
     @Override
@@ -150,7 +188,57 @@ public class MainWindow extends JFrame implements ActionListener {
                 // TODO: Handle if null or if database couldn't insert pokemon
                 System.out.println("Can't insert pokemon.");
             }
-
         }
+//        if (e.getActionCommand().equals(Actions.SELECT.name())) {
+//            /**
+//             *  Testing
+//             */
+//            String attribute_to_show = null;
+//            while (attribute_to_show == null) {
+//                System.out.print("Please enter the attribute_to_show: ");
+//                attribute_to_show = readLine().trim();
+//            }
+//
+//            String attribute_to_filter = null;
+//            while (attribute_to_filter == null) {
+//                System.out.print("Please enter the attribute_to_filter: ");
+//                attribute_to_filter = readLine().trim();
+//            }
+//
+//            int threshold = INVALID_INPUT;
+//            while (threshold == INVALID_INPUT) {
+//                System.out.print("Please enter threhold: ");
+//                threshold = readInteger(false);
+//            }
+//            delegate.selectPokemon(attribute_to_show, attribute_to_filter, threshold);
+//        }
+    }
+
+    private int readInteger(boolean allowEmpty) {
+        String line = null;
+        int input = INVALID_INPUT;
+        try {
+            line = bufferedReader.readLine();
+            input = Integer.parseInt(line);
+        } catch (IOException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        } catch (NumberFormatException e) {
+            if (allowEmpty && line.length() == 0) {
+                input = EMPTY_INPUT;
+            } else {
+                System.out.println(WARNING_TAG + " Your input was not an integer");
+            }
+        }
+        return input;
+    }
+
+    private String readLine() {
+        String result = null;
+        try {
+            result = bufferedReader.readLine();
+        } catch (IOException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+        return result;
     }
 }
