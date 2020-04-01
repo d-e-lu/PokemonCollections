@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$/SQLFiles/CreateTables.sql" dialect="OracleSqlPlus" />
     <file url="file://$PROJECT_DIR$/SQLFiles/CreateTablesReduced.sql" dialect="Oracle" />
     <file url="file://$PROJECT_DIR$/SQLFiles/DropTables.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/SQLFiles/DropTablesReduced.sql" dialect="Oracle" />
   </component>
 </project>

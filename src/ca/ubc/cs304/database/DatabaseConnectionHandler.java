@@ -29,95 +29,35 @@ public class DatabaseConnectionHandler {
     }
 
     /**
-     * Select Operation on Pokemon table
+     * Select Operation on Any Table
+     *
+     * Expects users to know the attribute names of table of selection.
+     * The first element of returned array is attribute_to_show, followed by
+     * the tuples (all converted to string)
+     *
      */
-    public String[] selectPokemon(String attribute_to_show, String attribute_to_filter, int threshold) {
+    public String[] selectTable(String attribute_to_show, String table, String attribute_to_filter, int threshold) {
         ArrayList<String> result = new ArrayList<String>();
+        result.add(attribute_to_show); // add the attribute name as first element
 
         try {
-            PreparedStatement ps = connection.prepareStatement("SELECT ? FROM POKEMON WHERE ? >= ?");
-            ps.setString(1, attribute_to_show);
-            ps.setString(2, attribute_to_filter);
-            ps.setInt(3, threshold);
-
-            System.out.println(attribute_to_show);
-            System.out.println(attribute_to_filter);
-            System.out.println(Integer.toString(threshold));
-
+            String query = "SELECT "+ attribute_to_show + " FROM "+ table +" WHERE "
+                    + attribute_to_filter + " >= " + Integer.toString(threshold);
+            PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             connection.commit();
 
+            // iterate through all the resulting tuples
             while(rs.next()) {
-
-//                String current_value = "";
-//                // Handle different cases
-//                switch (attribute_to_show) {
-//                    case "pokemon_id":
-//                        current_value = rs.getString("pokemon_id");
-//                        break;
-//                    case "name":
-//                        current_value = rs.getName();
-//                        break;
-//                    case "weight":
-//                        current_value = Double.toString(rs.getWeight());
-//                        break;
-//                    case "attack":
-//                        current_value = Integer.toString(rs.getAttack());
-//                        break;
-//                    case "special_defense":
-//                        current_value = Integer.toString(rs.getSpecial_defense());
-//                        break;
-//                    case "speed":
-//                        current_value = Integer.toString(rs.getSpeed());
-//                        break;
-//                    case "hp":
-//                        current_value = Integer.toString(rs.getHp());
-//                        break;
-//                    case "defense":
-//                        current_value = Integer.toString(rs.getDefense());
-//                        break;
-//                    case "special_attack":
-//                        current_value = Integer.toString(rs.getSpecial_attack());
-//                        break;
-//                    case "ability_name":
-//                        current_value = rs.getAbility_name();
-//                        break;
-//                }
                 String current_value = rs.getString(attribute_to_show);
                 result.add(current_value);
-
             }
 
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
+
         return result.toArray(new String[result.size()]);
-    }
-
-    /**
-     * This is for testing purpose
-     */
-    public AbilityModel[] getTableInfo() {
-        ArrayList<AbilityModel> result = new ArrayList<AbilityModel>();
-
-        try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM ability");
-
-            while(rs.next()) {
-                AbilityModel model = new AbilityModel(rs.getString("ability_name"),
-                        rs.getString("description"));
-                result.add(model);
-            }
-
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-
-        return result.toArray(new AbilityModel[result.size()]);
-
     }
 
     public void close() {

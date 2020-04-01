@@ -150,32 +150,6 @@ public class MainWindow extends JFrame implements ActionListener {
         // make the window visible
         this.setVisible(true);
 
-
-
-
-        /**
-         *  Testing
-         */
-        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        String attribute_to_show = null;
-        while (attribute_to_show == null) {
-            System.out.print("Please enter the attribute_to_show: ");
-            attribute_to_show = readLine().trim();
-        }
-
-        String attribute_to_filter = null;
-        while (attribute_to_filter == null) {
-            System.out.print("Please enter the attribute_to_filter: ");
-            attribute_to_filter = readLine().trim();
-        }
-
-        int threshold = INVALID_INPUT;
-        while (threshold == INVALID_INPUT) {
-            System.out.print("Please enter threhold: ");
-            threshold = readInteger(false);
-        }
-        delegate.selectPokemon(attribute_to_show, attribute_to_filter, threshold);
-
     }
 
     @Override
@@ -189,14 +163,22 @@ public class MainWindow extends JFrame implements ActionListener {
                 System.out.println("Can't insert pokemon.");
             }
         }
-//        if (e.getActionCommand().equals(Actions.SELECT.name())) {
+        if (e.getActionCommand().equals(Actions.SELECT.name())) {
+            // TODO
 //            /**
-//             *  Testing
+//             *  Sample Terminal Implementation
 //             */
+//            bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 //            String attribute_to_show = null;
 //            while (attribute_to_show == null) {
 //                System.out.print("Please enter the attribute_to_show: ");
 //                attribute_to_show = readLine().trim();
+//            }
+//
+//            String table = null;
+//            while (table == null) {
+//                System.out.print("Please enter the table: ");
+//                table = readLine().trim();
 //            }
 //
 //            String attribute_to_filter = null;
@@ -210,8 +192,8 @@ public class MainWindow extends JFrame implements ActionListener {
 //                System.out.print("Please enter threhold: ");
 //                threshold = readInteger(false);
 //            }
-//            delegate.selectPokemon(attribute_to_show, attribute_to_filter, threshold);
-//        }
+//            delegate.selectTable(attribute_to_show, table, attribute_to_filter, threshold);
+        }
     }
 
     private int readInteger(boolean allowEmpty) {
