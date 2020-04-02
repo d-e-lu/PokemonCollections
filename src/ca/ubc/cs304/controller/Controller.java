@@ -62,6 +62,9 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
      */
     public String[] select(String attribute_to_show, String table, String attribute_to_filter, int threshold) {
         String[] results = dbHandler.selectTable(attribute_to_show, table, attribute_to_filter, threshold);
+        for (String result : results) {
+            System.out.println(result);
+        }
         return results;
     }
 
@@ -102,10 +105,8 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
     public String[] division() {
         String[] results = dbHandler.division();
 
-        for (int i = 0; i < results.length; i++) {
-            String curr = results[i];
-            System.out.print(curr);
-            System.out.println();
+        for (String result : results) {
+            System.out.println(result);
         }
 
         return results;
@@ -121,12 +122,9 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
     public String[] project(String attribute, String table) {
         String[] results = dbHandler.projectTable(attribute, table);
 
-        for (int i = 0; i < results.length; i++) {
-            String curr = results[i];
-            System.out.print(curr);
-            System.out.println();
+        for (String result : results) {
+            System.out.println(result);
         }
-
         return results;
     }
 
@@ -138,10 +136,8 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
     public String[] join(String region) {
         String[] results = dbHandler.joinTable(region);
 
-        for (int i = 0; i < results.length; i++) {
-            String curr = results[i];
-            System.out.print(curr);
-            System.out.println();
+        for (String result : results) {
+            System.out.println(result);
         }
 
         return results;

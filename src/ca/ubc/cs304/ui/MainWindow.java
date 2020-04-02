@@ -149,70 +149,32 @@ public class MainWindow extends JFrame implements ActionListener {
             }
         } else if (e.getActionCommand().equals(Actions.PROJECT.name())) {
             System.out.println("Project");
+            String f = projectPanel.getField();
+            String t = projectPanel.getTable();
+            String[] results = delegate.project(f, t);
+            resultPanel.updateResultPanel(this, results);
         } else if (e.getActionCommand().equals(Actions.JOIN.name())) {
             System.out.println("Join");
+            String f = joinPanel.getField();
+            String[] results = delegate.join(f);
+            resultPanel.updateResultPanel(this, results);
         } else if (e.getActionCommand().equals(Actions.AGGREGATION.name())) {
             System.out.println("Aggregate");
-            // TODO
-//            /**
-//             *  Sample Terminal Implementation
-//             */
-//            bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-//            double threshold = Double.valueOf(INVALID_INPUT);
-//            while (threshold == Double.valueOf(INVALID_INPUT)) {
-//                System.out.print("Please enter threhold: ");
-//                threshold = readDouble(false);
-//            }
-//            delegate.countPokemonOnWeight(threshold);
+            Integer t = aggregationPanel.getThreshold();
+            if (t != null) {
+                int results = delegate.countPokemonOnWeight(t);
+                resultPanel.updateResultPanel(this, Integer.toString(results));
+            } else {
+                System.out.println("Can't aggregate.");
+            }
         } else if (e.getActionCommand().equals(Actions.NESTED_AGGREGATION.name())) {
-            System.out.println("Nested Aggregation");
+            System.out.println("Nested Aggregate");
+            double avg = delegate.avgPokemonPerRegion();
+            resultPanel.updateResultPanel(this, Double.toString(avg));
         } else if (e.getActionCommand().equals(Actions.DIVISION.name())) {
             System.out.println("Division");
+            String[] results = delegate.division();
+            resultPanel.updateResultPanel(this, results);
         }
-    }
-    private int readInteger(boolean allowEmpty) {
-        String line = null;
-        int input = INVALID_INPUT;
-        try {
-            line = bufferedReader.readLine();
-            input = Integer.parseInt(line);
-        } catch (IOException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        } catch (NumberFormatException e) {
-            if (allowEmpty && line.length() == 0) {
-                input = EMPTY_INPUT;
-            } else {
-                System.out.println(WARNING_TAG + " Your input was not an integer");
-            }
-        }
-        return input;
-    }
-
-    private double readDouble(boolean allowEmpty) {
-        String line = null;
-        double input = Double.valueOf(INVALID_INPUT);
-        try {
-            line = bufferedReader.readLine();
-            input = Double.parseDouble(line);
-        } catch (IOException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        } catch (NumberFormatException e) {
-            if (allowEmpty && line.length() == 0) {
-                input = Double.valueOf(EMPTY_INPUT);
-            } else {
-                System.out.println(WARNING_TAG + " Your input was not a double");
-            }
-        }
-        return input;
-    }
-
-    private String readLine() {
-        String result = null;
-        try {
-            result = bufferedReader.readLine();
-        } catch (IOException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-        return result;
     }
 }
