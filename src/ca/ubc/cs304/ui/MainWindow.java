@@ -170,11 +170,15 @@ public class MainWindow extends JFrame implements ActionListener {
         } else if (e.getActionCommand().equals(Actions.NESTED_AGGREGATION.name())) {
             System.out.println("Nested Aggregate");
             double avg = delegate.avgPokemonPerRegion();
-            resultPanel.updateResultPanel(this, Double.toString(avg));
+            resultPanel.updateResultPanel(this, "Average number of pokemon per region is: " + Double.toString(avg));
         } else if (e.getActionCommand().equals(Actions.DIVISION.name())) {
             System.out.println("Division");
             String[] results = delegate.division();
-            resultPanel.updateResultPanel(this, results);
+            String description = "All pokemon that are in all regions:";
+            String[] display = new String[results.length+1];
+            display[0] = description;
+            System.arraycopy(results,0, display,1,results.length);
+            resultPanel.updateResultPanel(this, display);
         }
     }
 }
