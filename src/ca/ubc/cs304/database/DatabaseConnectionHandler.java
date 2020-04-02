@@ -260,6 +260,61 @@ public class DatabaseConnectionHandler {
     }
 
     /**
+     * Update operation for Pokemon table, can not change pokemon ID or name
+     * @param p
+     */
+    public PokemonModel[] update(PokemonModel p) {
+        ArrayList<PokemonModel> result = new ArrayList<PokemonModel>();
+        try {
+            String q = "SELECT * FROM ability where ability_name = '" + p.getAbility_name() + "'";
+            PreparedStatement s = connection.prepareStatement(q);
+            ResultSet r = s.executeQuery();
+
+            if(r == null) {
+                System.out.println(WARNING_TAG + "Ability does not exist. Please try again");
+            } else {
+                try {
+                    String query = "UPDATE pokemon SET " +
+                            "weight = " + Double.toString(p.getWeight()) + ", " +
+                            "attack = " + Integer.toString(p.getAttack()) + ", " +
+                            "special_defense = " + Integer.toString(p.getSpecial_defense()) + ", " +
+                            "speed = " + Integer.toString(p.getSpeed()) + ", " +
+                            "hp = " + Integer.toString(p.getHp()) + ", " +
+                            "defense = " + Integer.toString(p.getDefense()) + ", " +
+                            "special_attack = " + Integer.toString(p.getSpecial_attack()) + ", " +
+                            "ability_name = '" + p.getAbility_name() + "' " +
+                            "WHERE pokemon_id = " + Integer.toString(p.getPokemon_id()) +
+                            " AND name = '" + p.getName() + "'";
+
+                    PreparedStatement ps = connection.prepareStatement(query);
+                    ResultSet rs = ps.executeQuery();
+                    connection.commit();
+
+                    while (rs.next()) {
+                        PokemonModel model = new PokemonModel(rs.getInt("pokemon_Id"),
+                                rs.getString("name"),
+                                rs.getDouble("weight"),
+                                rs.getInt("attack"),
+                                rs.getInt("special_defense"),
+                                rs.getInt("speed"),
+                                rs.getInt("hp"),
+                                rs.getInt("defense"),
+                                rs.getInt("special_attack"),
+                                rs.getString("ability_name"));
+                        result.add(model);
+                    }
+                    ps.close();
+                } catch (SQLException e) {
+                    System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+                }
+            }
+        } catch (SQLException x) {
+            System.out.println(EXCEPTION_TAG + " " + x.getMessage());
+        }
+        return result.toArray(new PokemonModel[result.size()]);
+    }
+
+    /**
      * Project operation on Any Table
      *
      * @param attribute

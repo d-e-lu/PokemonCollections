@@ -167,8 +167,10 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
         return models;
     }
 
-    public void update(PokemonModel p) {
+    public PokemonModel[] update(PokemonModel p) {
         // Do something dbHandler
+        PokemonModel[] models = dbHandler.update(p);
+        return models;
     }
 
     /**
