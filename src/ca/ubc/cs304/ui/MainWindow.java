@@ -109,51 +109,6 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // make the window visible
         this.setVisible(true);
-        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        //        TEST FOR UPDATE
-//        pokemon(id,nm,wt,atk,spdef,spe,hp,spatk,abi)
-        System.out.println("id:");
-        String id = readLine().trim();
-        Integer pid = Integer.parseInt(id);
-
-        System.out.println("name:");
-        String name = readLine().trim();
-//        String name_new = "'" + name +"'";
-
-        System.out.println("weight:");
-        String wt = readLine().trim();
-        Double weight = Double.parseDouble(wt);
-
-        System.out.println("attack:");
-        String atk = readLine().trim();
-        Integer attack = Integer.parseInt(atk);
-
-        System.out.println("special defense:");
-        String spdef = readLine().trim();
-        Integer spdefense = Integer.parseInt(spdef);
-
-        System.out.println("speed:");
-        String spe = readLine().trim();
-        Integer speed = Integer.parseInt(spe);
-
-        System.out.println("hp:");
-        String hp = readLine().trim();
-        Integer health = Integer.parseInt(hp);
-
-        System.out.println("defense:");
-        String def = readLine().trim();
-        Integer defense = Integer.parseInt(def);
-
-        System.out.println("special attack:");
-        String spatk = readLine().trim();
-        Integer spattack = Integer.parseInt(spatk);
-
-        System.out.println("ability:");
-        String ability = readLine().trim();
-//        String ability_new = "'" + ability + "'";
-
-        PokemonModel p = new PokemonModel(pid, name, weight, attack, spdefense, speed, health, defense, spattack, ability);
-        delegate.update(p);
     }
 
     @Override

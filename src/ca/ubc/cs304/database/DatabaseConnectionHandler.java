@@ -269,9 +269,10 @@ public class DatabaseConnectionHandler {
             String q = "SELECT * FROM ability where ability_name = '" + p.getAbility_name() + "'";
             PreparedStatement s = connection.prepareStatement(q);
             ResultSet r = s.executeQuery();
+            connection.commit();
 
             if(r == null) {
-                System.out.println(WARNING_TAG + "Ability does not exist. Please try again");
+                System.out.println(WARNING_TAG + "Please check that the Pokemon ability already exist.");
             } else {
                 try {
                     String query = "UPDATE pokemon SET " +
@@ -287,10 +288,19 @@ public class DatabaseConnectionHandler {
                             " AND name = '" + p.getName() + "'";
 
                     PreparedStatement ps = connection.prepareStatement(query);
+                    connection.commit();
+
+                    int changes = ps.executeUpdate(); // check how many rows were changed
+                    if (changes == 0) {
+                        System.out.println(WARNING_TAG + "Please try again.");
+                    }
+
+                    // get the information for updated pokemon table
+                    ps = connection.prepareStatement("SELECT * FROM POKEMON");
                     ResultSet rs = ps.executeQuery();
                     connection.commit();
 
-                    while (rs.next()) {
+                    while (rs.next()){
                         PokemonModel model = new PokemonModel(rs.getInt("pokemon_Id"),
                                 rs.getString("name"),
                                 rs.getDouble("weight"),
@@ -300,7 +310,8 @@ public class DatabaseConnectionHandler {
                                 rs.getInt("hp"),
                                 rs.getInt("defense"),
                                 rs.getInt("special_attack"),
-                                rs.getString("ability_name"));
+                                rs.getString("ability_name")
+                        );
                         result.add(model);
                     }
                     ps.close();
@@ -308,6 +319,7 @@ public class DatabaseConnectionHandler {
                     System.out.println(EXCEPTION_TAG + " " + e.getMessage());
                 }
             }
+            s.close();
         } catch (SQLException x) {
             System.out.println(EXCEPTION_TAG + " " + x.getMessage());
         }
