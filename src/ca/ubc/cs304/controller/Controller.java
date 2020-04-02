@@ -70,20 +70,54 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
      *
      * @param threshold
      */
-    public void countPokemonOnWeight(double threshold) {
+    public int countPokemonOnWeight(double threshold) {
         int result = dbHandler.countPokemonOnWeight(threshold);
 
         // show result number in the terminal
         System.out.print("Total number of Pokemon heavier than " + threshold + " is " + result);
         System.out.println();
+
+        return result;
     }
 
     /**
-     * Project Operation on Any Table
+     * Find average number of pokemon per region
      *
-     * @param attribute
-     * @param table
      */
+    public double avgPokemonPerRegion() {
+        double result = dbHandler.avgPokemonPerRegion();
+
+        // show result number in the terminal
+        System.out.print("Average number of pokemon per region is " + result);
+        System.out.println();
+
+        return result;
+    }
+
+    /**
+     * Division Operation
+     * Find all pokemon in all region
+     *
+     */
+    public String[] division() {
+        String[] results = dbHandler.division();
+
+        for (int i = 0; i < results.length; i++) {
+            String curr = results[i];
+            System.out.print(curr);
+            System.out.println();
+        }
+
+        return results;
+    }
+
+
+        /**
+         * Project Operation on Any Table
+         *
+         * @param attribute
+         * @param table
+         */
     public String[] project(String attribute, String table) {
         String[] results = dbHandler.projectTable(attribute, table);
 
@@ -96,6 +130,11 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
         return results;
     }
 
+    /**
+     * Join Operation on pokemon and FoundIn, filtering based on region
+     *
+     * @param region
+     */
     public String[] join(String region) {
         String[] results = dbHandler.joinTable(region);
 

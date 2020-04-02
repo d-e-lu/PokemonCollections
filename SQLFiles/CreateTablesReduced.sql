@@ -81,13 +81,20 @@ CREATE TABLE found_in (
 );
 
 INSERT INTO found_in VALUES (1, 'Kanto', 'Cerulean City');
+INSERT INTO found_in VALUES (1, 'Hoenn', 'Safari Zone');
+INSERT INTO found_in VALUES (1, 'Sinnoh', 'Spear Pillar');
+
 INSERT INTO found_in VALUES (2, 'Kanto', 'Route 24');
 INSERT INTO found_in VALUES (3, 'Kanto', 'Vermilion City');
 INSERT INTO found_in VALUES (4, 'Kanto', 'Route 12, 16');
 INSERT INTO found_in VALUES (5, 'Kanto', 'Seafoam Islands');
 INSERT INTO found_in VALUES (6, 'Hoenn', 'Safari Zone');
 INSERT INTO found_in VALUES (7, 'Hoenn', 'Route 105');
+
+INSERT INTO found_in VALUES (8, 'Kanto', 'Route 24');
 INSERT INTO found_in VALUES (8, 'Hoenn', 'Southern Island');
+INSERT INTO found_in VALUES (8, 'Sinnoh', 'Route 209');
+
 INSERT INTO found_in VALUES (9, 'Hoenn', 'Roaming Hoenn');
 INSERT INTO found_in VALUES (10, 'Hoenn', 'Sky Pillar');
 INSERT INTO found_in VALUES (11, 'Sinnoh', 'Lake Verity');
