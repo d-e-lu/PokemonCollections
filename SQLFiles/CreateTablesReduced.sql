@@ -1,6 +1,6 @@
 CREATE TABLE ability (
     ability_name VARCHAR(20),
-    description VARCHAR(100),
+    description VARCHAR(200),
     PRIMARY KEY (ability_name)
 );
 
