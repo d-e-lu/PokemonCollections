@@ -95,11 +95,29 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
     }
 
     /**
-     * Project Operation on Any Table
+     * Division Operation
+     * Find all pokemon in all region
      *
-     * @param attribute
-     * @param table
      */
+    public String[] division() {
+        String[] results = dbHandler.division();
+
+        for (int i = 0; i < results.length; i++) {
+            String curr = results[i];
+            System.out.print(curr);
+            System.out.println();
+        }
+
+        return results;
+    }
+
+
+        /**
+         * Project Operation on Any Table
+         *
+         * @param attribute
+         * @param table
+         */
     public String[] project(String attribute, String table) {
         String[] results = dbHandler.projectTable(attribute, table);
 

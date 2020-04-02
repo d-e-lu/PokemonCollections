@@ -14,6 +14,7 @@ public interface MainWindowDelegate {
     public String[] join(String region);
     public int countPokemonOnWeight(double threshold);
     public double avgPokemonPerRegion();
+    public String[] division();
 
 }
 

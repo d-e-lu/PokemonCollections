@@ -116,6 +116,43 @@ public class DatabaseConnectionHandler {
     }
 
     /**
+     * Division Operation
+     *
+     * Find all the pokemon that occurs in all region
+     *
+     */
+    public String[] division() {
+        ArrayList<String> result = new ArrayList<String>();
+        result.add("name"); // add the attribute name as first element
+
+        try {
+            String query = "Select p.name " +
+                    "From pokemon p " +
+                    "Where Not Exists ( " +
+                    "    (Select region From area) " +
+                    "Minus " +
+                    "    (Select f.region " +
+                    "    From Found_In f " +
+                    "    Where p.pokemon_id = f.pokemon_id))";
+
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            connection.commit();
+
+            // iterate through all the resulting tuples
+            while(rs.next()) {
+                String current_value = rs.getString("name");
+                result.add(current_value);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new String[result.size()]);
+    }
+
+    /**
      * Delete Operation on Pokemon Table
      *
      * If user input pokemonId that does not exist or has already been deleted,
