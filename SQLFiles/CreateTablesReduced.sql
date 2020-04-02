@@ -13,7 +13,7 @@ INSERT INTO ability VALUES ('Static', 'If a Pokemon with Static is hit by a move
 INSERT INTO ability VALUES ('Clear Body', 'Prevents other Pokemon from lowering its stats.');
 INSERT INTO ability VALUES ('Levitate', 'Causes the Pokemon to be raised like Flying-type Pokemon. Raised Pokemon are not affected by various moves.');
 INSERT INTO ability VALUES ('Air Lock', 'Suppresses all effects brought on by weather, including move power increases, relevant abilities and so on.');
-INSERT INTO ability VALUES ('Run Away', 'Allows the bearer to flee a battle with a wild Pokemon without fail.')
+INSERT INTO ability VALUES ('Run Away', 'Allows the bearer to flee a battle with a wild Pokemon without fail.');
 INSERT INTO ability VALUES ('Pressure', 'Makes any attack targeted at the ability bearer - regardless of whether it hits - use 2 PP instead of 1.');
 
 CREATE TABLE pokemon (
