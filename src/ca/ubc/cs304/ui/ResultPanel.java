@@ -1,11 +1,14 @@
 package ca.ubc.cs304.ui;
 
+import ca.ubc.cs304.model.PokemonModel;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class ResultPanel extends JPanel {
 
     private JList list;
+    private JTable table;
     private JScrollPane scrollPane;
 
     public ResultPanel() {
@@ -30,6 +33,21 @@ public class ResultPanel extends JPanel {
         this.removeAll();
         list = new JList(result);
         scrollPane = new JScrollPane(list);
+        this.add(scrollPane);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    public void updateResultPanel(JFrame frame, PokemonModel[] result) {
+        this.removeAll();
+        String[][] s =  new String[result.length][9];
+        String[] columns = result[0].getColumns();
+        for (int i = 0; i < result.length; ++i) {
+            PokemonModel p = result[i];
+            s[i] = p.pokemonToString();
+        }
+        table = new JTable(s,columns);
+        scrollPane = new JScrollPane(table);
         this.add(scrollPane);
         frame.revalidate();
         frame.repaint();

@@ -64,5 +64,23 @@ public class PokemonModel {
     public String getAbility_name() {
         return ability_name;
     }
+
+    public String[] getColumns() {
+        String[] columns = {"pokemon_id","name","weight","attack","special_defense", "hp", "defense","special_attack","ability_name"};
+        return columns;
+    }
+    public String[] pokemonToString() {
+        String id = Integer.toString(this.getPokemon_id());
+        String name = this.getName();
+        String weight = Double.toString(this.getWeight());
+        String attack = Integer.toString(this.getAttack());
+        String sp_d = Integer.toString(this.getSpecial_defense());
+        String hp = Integer.toString(this.getHp());
+        String defense = Integer.toString(this.getDefense());
+        String sp_a = Integer.toString(this.getSpecial_attack());
+        String a_n = this.getAbility_name();
+        String[] s = {id,name, weight, attack, sp_d, hp, defense, sp_a, a_n};
+        return s;
+    }
 }
 
