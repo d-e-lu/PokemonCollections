@@ -70,12 +70,28 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
      *
      * @param threshold
      */
-    public void countPokemonOnWeight(double threshold) {
+    public int countPokemonOnWeight(double threshold) {
         int result = dbHandler.countPokemonOnWeight(threshold);
 
         // show result number in the terminal
         System.out.print("Total number of Pokemon heavier than " + threshold + " is " + result);
         System.out.println();
+
+        return result;
+    }
+
+    /**
+     * Find average number of pokemon per region
+     *
+     */
+    public double avgPokemonPerRegion() {
+        double result = dbHandler.avgPokemonPerRegion();
+
+        // show result number in the terminal
+        System.out.print("Average number of pokemon per region is " + result);
+        System.out.println();
+
+        return result;
     }
 
     /**
@@ -96,6 +112,11 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
         return results;
     }
 
+    /**
+     * Join Operation on pokemon and FoundIn, filtering based on region
+     *
+     * @param region
+     */
     public String[] join(String region) {
         String[] results = dbHandler.joinTable(region);
 

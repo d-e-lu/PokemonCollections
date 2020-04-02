@@ -109,27 +109,6 @@ public class MainWindow extends JFrame implements ActionListener {
 
         // make the window visible
         this.setVisible(true);
-        /**
-         *  Sample Terminal Implementation
-         */
-        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-//        String attribute = null;
-//        String table = null;
-//        while (attribute == null) {
-//            System.out.print("Please enter attribute to project: ");
-//            attribute = readLine().trim();
-//        }
-//        while (table == null) {
-//            System.out.println("Please indicate which table to project");
-//            table = readLine().trim();
-//        }
-//        delegate.project(attribute, table);
-        String region = null;
-        while (region == null) {
-            System.out.println("Please enter region to project");
-            region = readLine().trim();
-        }
-        delegate.join(region);
     }
 
     @Override

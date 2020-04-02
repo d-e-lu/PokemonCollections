@@ -87,6 +87,35 @@ public class DatabaseConnectionHandler {
     }
 
     /**
+     * Find average number of pokemon per region
+     *
+     */
+    public double avgPokemonPerRegion() {
+        try {
+            String query = "Select avg(counting) average_num " +
+                    "    From (Select count(*) counting " +
+                    "        From (Select * " +
+                    "            From Pokemon p " +
+                    "            Left Join Found_In f " +
+                    "            On p.pokemon_id = f.pokemon_id) pf " +
+                    "        Group by pf.region)";
+
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            connection.commit();
+
+            if (rs.next()) {
+                return Double.parseDouble(rs.getString("average_num"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return 0.0;
+    }
+
+    /**
      * Delete Operation on Pokemon Table
      *
      * If user input pokemonId that does not exist or has already been deleted,
