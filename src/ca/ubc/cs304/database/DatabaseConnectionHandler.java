@@ -206,12 +206,39 @@ public class DatabaseConnectionHandler {
             String query = "SELECT " + attribute + " FROM " + table;
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
+            connection.commit();
 
             while (rs.next()) { // retrieve tuples
                 String curr = rs.getString(attribute);
                 result.add(curr);
             }
 
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+        return result.toArray(new String[result.size()]);
+    }
+
+    /**
+     * Join operation for pokemon and region table
+     * @param region
+     */
+    public String[] joinTable(String region) {
+        ArrayList<String> result = new ArrayList<String>();
+
+        try {
+            String query = "SELECT p.name, f.region " +
+                    "FROM pokemon p, found_in f " +
+                    "WHERE p.pokemon_id = f.pokemon_id " +
+                    "AND region = '" + region + "'";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            connection.commit();
+
+            while (rs.next()) {
+                String curr = rs.getString("name");
+                result.add(curr);
+            }
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }

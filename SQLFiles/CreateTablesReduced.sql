@@ -35,6 +35,12 @@ CREATE TABLE area (
     PRIMARY KEY (region, location)
 );
 
+INSERT INTO area VALUES ('Kanto', 'Pallet Town');
+INSERT INTO area VALUES ('Kanto', 'Lavender Town');
+INSERT INTO area VALUES ('Johto', 'Blackthrown City');
+INSERT INTO area VALUES ('Johto', 'Violet City');
+
+
 CREATE TABLE found_in (
     pokemon_id INTEGER,
     region VARCHAR(20),
@@ -44,3 +50,6 @@ CREATE TABLE found_in (
                       ON DELETE CASCADE,
     FOREIGN KEY (region, location) REFERENCES area
 );
+
+INSERT INTO found_in VALUES (5, 'Kanto', 'Pallet Town');
+INSERT INTO found_in VALUES (3, 'Johto', 'Violet City');

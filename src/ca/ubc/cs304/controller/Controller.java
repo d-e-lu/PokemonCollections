@@ -96,6 +96,18 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
         return results;
     }
 
+    public String[] join(String region) {
+        String[] results = dbHandler.joinTable(region);
+
+        for (int i = 0; i < results.length; i++) {
+            String curr = results[i];
+            System.out.print(curr);
+            System.out.println();
+        }
+
+        return results;
+    }
+
     /**
      * Insert Operation for Pokemon Table
      *
