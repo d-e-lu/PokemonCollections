@@ -8,7 +8,7 @@ public class AggregationPanel extends DefaultPanel{
 
     public AggregationPanel(JFrame frame, String resultButtonCommandName) {
         super();
-
+        loadBg("images//Pokemon7.jpg");
         JLabel fieldLabel = new JLabel("Enter weight threshold: ");
 
         weightThreshold = new JTextField(TEXT_FIELD_WIDTH);

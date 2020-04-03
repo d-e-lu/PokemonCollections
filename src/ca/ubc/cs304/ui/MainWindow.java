@@ -4,17 +4,20 @@ import ca.ubc.cs304.delegates.MainWindowDelegate;
 import ca.ubc.cs304.model.PokemonModel;
 //import com.sun.org.apache.xpath.internal.operations.Div;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MainWindow extends JFrame implements ActionListener {
 
     private static final int FRAME_HEIGHT = 600;
-    private static final int FRAME_WIDTH = 800;
+    private static final int FRAME_WIDTH = 1600;
     private static final int INVALID_INPUT = Integer.MIN_VALUE;
     private BufferedReader bufferedReader = null;
     private static final int EMPTY_INPUT = 0;
@@ -35,6 +38,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
     // delegate
     private MainWindowDelegate delegate;
+    private Font font;
 
     private JTabbedPane tabbedPane;
     private ResultPanel resultPanel;
@@ -51,6 +55,31 @@ public class MainWindow extends JFrame implements ActionListener {
     private NestedAggregationPanel nestedAggregationPanel;
     private DivisionPanel divisionPanel;
 
+    public static void changeFont ( Component component, Font font )
+    {
+        component.setFont ( font );
+        if ( component instanceof Container )
+        {
+            for ( Component child : ( ( Container ) component ).getComponents () )
+            {
+                changeFont ( child, font );
+            }
+        }
+    }
+    private void createFont() {
+        try {
+            //create the font to use. Specify the size!
+            font = Font.createFont(Font.TRUETYPE_FONT, new File("fonts\\Pokemon_Text.ttf")).deriveFont(10f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            //register the font
+            ge.registerFont(font);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch(FontFormatException e) {
+            e.printStackTrace();
+        }
+
+    }
     public void showFrame(MainWindowDelegate delegate) {
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -63,6 +92,8 @@ public class MainWindow extends JFrame implements ActionListener {
         this.setLayout(new BorderLayout());
         this.delegate = delegate;
 
+        createFont();
+
         JPanel contentPane = new JPanel(new GridLayout(1,2));
         this.setContentPane(contentPane);
 
@@ -70,15 +101,16 @@ public class MainWindow extends JFrame implements ActionListener {
         scrollPane = new JScrollPane();
         list = new JList();
         resultPanel.add(scrollPane);
+
         tabbedPane = new JTabbedPane();
 
-        insertPanel = new InsertPanel(this, Actions.INSERT.name());
+        insertPanel = new InsertPanel(this, Actions.INSERT.name(), "images//Pokemon1.jpg");
         tabbedPane.addTab(Actions.INSERT.name(), insertPanel);
 
         deletePanel = new DeletePanel(this, Actions.DELETE.name());
         tabbedPane.addTab(Actions.DELETE.name(), deletePanel);
 
-        updatePanel = new InsertPanel(this, Actions.UPDATE.name());
+        updatePanel = new InsertPanel(this, Actions.UPDATE.name(),"images//Pokemon3.jpg");
         tabbedPane.addTab(Actions.UPDATE.name(), updatePanel);
 
         selectPanel = new SelectPanel(this, Actions.SELECT.name());
@@ -99,6 +131,8 @@ public class MainWindow extends JFrame implements ActionListener {
         divisionPanel = new DivisionPanel(this, Actions.DIVISION.name());
         tabbedPane.addTab(Actions.DIVISION.name(), divisionPanel);
 
+        changeFont(tabbedPane,font);
+
         contentPane.add(tabbedPane);
         contentPane.add(resultPanel);
 
@@ -106,7 +140,6 @@ public class MainWindow extends JFrame implements ActionListener {
         Dimension d = this.getToolkit().getScreenSize();
         Rectangle r = this.getBounds();
         this.setLocation( (d.width - r.width)/2, (d.height - r.height)/2 );
-
         // make the window visible
         this.setVisible(true);
     }
@@ -124,14 +157,16 @@ public class MainWindow extends JFrame implements ActionListener {
         } else if (e.getActionCommand().equals(Actions.DELETE.name())) {
             Integer pId = deletePanel.deletePokemon();
             if (pId != null) {
-                delegate.delete(pId);
+                PokemonModel[] result = delegate.delete(pId);
+                resultPanel.updateResultPanel(this, result);
             } else {
                 System.out.println("Can't delete pokemon.");
             }
         } else if (e.getActionCommand().equals(Actions.UPDATE.name())) {
-            PokemonModel p = insertPanel.createPokemonModel();
+            PokemonModel p = updatePanel.createPokemonModel();
             if (p != null) {
-                delegate.update(p);
+                PokemonModel[] result = delegate.update(p);
+                resultPanel.updateResultPanel(this, result);
             } else {
                 System.out.println("Can't update pokemon.");
             }

@@ -9,6 +9,7 @@ public class ProjectPanel extends DefaultPanel{
 
     public ProjectPanel(JFrame frame, String resultButtonCommandName) {
         super();
+        loadBg("images//Pokemon5.jpg");
 
         JLabel fieldLabel = new JLabel("Enter select attribute: ");
         JLabel tableLabel = new JLabel("Enter table: ");

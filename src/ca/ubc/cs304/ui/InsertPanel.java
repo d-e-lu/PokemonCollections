@@ -2,8 +2,12 @@ package ca.ubc.cs304.ui;
 
 import ca.ubc.cs304.model.PokemonModel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
+
 
 public class InsertPanel extends DefaultPanel {
 
@@ -18,8 +22,9 @@ public class InsertPanel extends DefaultPanel {
     private JTextField specialAttackField;
     private JTextField abilityNameField;
 
-    public InsertPanel(JFrame frame, String resultButtonCommandName) {
+    public InsertPanel(JFrame frame, String resultButtonCommandName, String bgPath) {
         super();
+        loadBg(bgPath);
 
         JLabel pokemonId = new JLabel("Enter pokemon id: ");
         JLabel name = new JLabel("Enter name: ");

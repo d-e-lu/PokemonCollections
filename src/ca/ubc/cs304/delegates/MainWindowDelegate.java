@@ -1,8 +1,6 @@
 package ca.ubc.cs304.delegates;
 
 import ca.ubc.cs304.model.PokemonModel;
-import ca.ubc.cs304.model.AbilityModel;
-
 
 public interface MainWindowDelegate {
     public void mainWindowFinished();

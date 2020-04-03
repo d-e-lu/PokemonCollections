@@ -8,7 +8,7 @@ public class JoinPanel extends DefaultPanel{
 
     public JoinPanel(JFrame frame, String resultButtonCommandName) {
         super();
-
+        loadBg("images//Pokemon6.jpg");
         JLabel fieldLabel = new JLabel("Enter region: ");
 
         regionField = new JTextField(TEXT_FIELD_WIDTH);
