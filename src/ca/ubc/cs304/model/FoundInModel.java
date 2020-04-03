@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-public class FoundInModel {
+public class FoundInModel implements Model{
     private final int pokemon_id;
     private final String region;
     private final String location;
@@ -21,5 +21,16 @@ public class FoundInModel {
 
     public String getLocation() {
         return location;
+    }
+
+    public String[] getAttributeNames() {
+        String[] columns = {"pokemon_id", "region", "location"};
+        return columns;
+    }
+
+    public String[] getAttributes() {
+        String id = Integer.toString(getPokemon_id());
+        String[] s = {id, region, location};
+        return s;
     }
 }

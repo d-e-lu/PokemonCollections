@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-public class AreaModel {
+public class AreaModel implements Model{
     private final String region;
     private final String location;
 
@@ -15,5 +15,15 @@ public class AreaModel {
 
     public String getLocation() {
         return location;
+    }
+
+    public String[] getAttributeNames() {
+        String[] columns = {"region", "location"};
+        return columns;
+    }
+
+    public String[] getAttributes() {
+        String[] s = {this.region, this.location};
+        return s;
     }
 }

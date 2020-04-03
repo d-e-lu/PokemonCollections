@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-public class PokemonModel {
+public class PokemonModel implements Model {
     private final int pokemon_id;
     private final String name;
     private final double weight;
@@ -65,21 +65,19 @@ public class PokemonModel {
         return ability_name;
     }
 
-    public String[] getColumns() {
+    public String[] getAttributeNames() {
         String[] columns = {"pokemon_id","name","weight","attack","special_defense", "hp", "defense","special_attack","ability_name"};
         return columns;
     }
-    public String[] pokemonToString() {
-        String id = Integer.toString(this.getPokemon_id());
-        String name = this.getName();
-        String weight = Double.toString(this.getWeight());
-        String attack = Integer.toString(this.getAttack());
-        String sp_d = Integer.toString(this.getSpecial_defense());
-        String hp = Integer.toString(this.getHp());
-        String defense = Integer.toString(this.getDefense());
-        String sp_a = Integer.toString(this.getSpecial_attack());
-        String a_n = this.getAbility_name();
-        String[] s = {id,name, weight, attack, sp_d, hp, defense, sp_a, a_n};
+    public String[] getAttributes() {
+        String id = Integer.toString(getPokemon_id());
+        String weight = Double.toString(getWeight());
+        String attack = Integer.toString(getAttack());
+        String sp_d = Integer.toString(getSpecial_defense());
+        String hp = Integer.toString(getHp());
+        String defense = Integer.toString(getDefense());
+        String sp_a = Integer.toString(getSpecial_attack());
+        String[] s = {id, name, weight, attack, sp_d, hp, defense, sp_a, ability_name};
         return s;
     }
 }

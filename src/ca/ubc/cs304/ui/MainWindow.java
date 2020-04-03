@@ -1,6 +1,7 @@
 package ca.ubc.cs304.ui;
 
 import ca.ubc.cs304.delegates.MainWindowDelegate;
+import ca.ubc.cs304.model.Model;
 import ca.ubc.cs304.model.PokemonModel;
 //import com.sun.org.apache.xpath.internal.operations.Div;
 
@@ -34,6 +35,7 @@ public class MainWindow extends JFrame implements ActionListener {
         AGGREGATION,
         NESTED_AGGREGATION,
         DIVISION,
+        VIEW
     }
 
     // delegate
@@ -42,7 +44,6 @@ public class MainWindow extends JFrame implements ActionListener {
 
     private JTabbedPane tabbedPane;
     private ResultPanel resultPanel;
-    private JList list;
     private JScrollPane scrollPane;
 
     private InsertPanel insertPanel;
@@ -54,6 +55,7 @@ public class MainWindow extends JFrame implements ActionListener {
     private AggregationPanel aggregationPanel;
     private NestedAggregationPanel nestedAggregationPanel;
     private DivisionPanel divisionPanel;
+    private ViewPanel viewPanel;
 
     public static void changeFont ( Component component, Font font )
     {
@@ -99,7 +101,6 @@ public class MainWindow extends JFrame implements ActionListener {
 
         resultPanel = new ResultPanel();
         scrollPane = new JScrollPane();
-        list = new JList();
         resultPanel.add(scrollPane);
 
         tabbedPane = new JTabbedPane();
@@ -130,6 +131,9 @@ public class MainWindow extends JFrame implements ActionListener {
 
         divisionPanel = new DivisionPanel(this, Actions.DIVISION.name());
         tabbedPane.addTab(Actions.DIVISION.name(), divisionPanel);
+
+        viewPanel = new ViewPanel(this, Actions.VIEW.name());
+        tabbedPane.addTab(Actions.VIEW.name(), viewPanel);
 
         changeFont(tabbedPane,font);
 
@@ -214,6 +218,11 @@ public class MainWindow extends JFrame implements ActionListener {
             display[0] = description;
             System.arraycopy(results,0, display,1,results.length);
             resultPanel.updateResultPanel(this, display);
+        } else if(e.getActionCommand().equals(Actions.VIEW.name())) {
+            System.out.println("View");
+            String table = viewPanel.getTable();
+            Model[] results = delegate.view(table);
+            resultPanel.updateResultPanel(this, results);
         }
     }
 }

@@ -4,6 +4,7 @@ import ca.ubc.cs304.database.DatabaseConnectionHandler;
 import ca.ubc.cs304.delegates.LoginWindowDelegate;
 import ca.ubc.cs304.delegates.MainWindowDelegate;
 
+import ca.ubc.cs304.model.Model;
 import ca.ubc.cs304.model.PokemonModel;
 import ca.ubc.cs304.model.AbilityModel;
 
@@ -166,6 +167,11 @@ public class Controller implements LoginWindowDelegate, MainWindowDelegate {
     public PokemonModel[] update(PokemonModel p) {
         // Do something dbHandler
         PokemonModel[] models = dbHandler.update(p);
+        return models;
+    }
+
+    public Model[] view(String table) {
+        Model[] models = dbHandler.view(table);
         return models;
     }
 

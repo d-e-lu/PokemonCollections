@@ -1,5 +1,6 @@
 package ca.ubc.cs304.ui;
 
+import ca.ubc.cs304.model.Model;
 import ca.ubc.cs304.model.PokemonModel;
 
 import javax.swing.*;
@@ -38,13 +39,17 @@ public class ResultPanel extends JPanel {
         frame.repaint();
     }
 
-    public void updateResultPanel(JFrame frame, PokemonModel[] result) {
+    public void updateResultPanel(JFrame frame, Model[] result) {
+        if(result.length == 0) {
+            System.out.println("Table length is 0");
+            return;
+        }
         this.removeAll();
-        String[][] s =  new String[result.length][9];
-        String[] columns = result[0].getColumns();
+        String[] columns = result[0].getAttributeNames();
+        String[][] s =  new String[result.length][columns.length];
+
         for (int i = 0; i < result.length; ++i) {
-            PokemonModel p = result[i];
-            s[i] = p.pokemonToString();
+            s[i] = result[i].getAttributes();
         }
         table = new JTable(s,columns);
         scrollPane = new JScrollPane(table);

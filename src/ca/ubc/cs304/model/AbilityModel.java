@@ -1,6 +1,6 @@
 package ca.ubc.cs304.model;
 
-public class AbilityModel {
+public class AbilityModel implements Model{
     private final String ability_name;
     private final String description;
 
@@ -15,5 +15,15 @@ public class AbilityModel {
 
     public String getDescription() {
         return description;
+    }
+
+    public String[] getAttributeNames() {
+        String[] columns = {"ability_name", "description"};
+        return columns;
+    }
+
+    public String[] getAttributes() {
+        String[] s = {ability_name, description};
+        return s;
     }
 }

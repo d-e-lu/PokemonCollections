@@ -1,5 +1,6 @@
 package ca.ubc.cs304.delegates;
 
+import ca.ubc.cs304.model.Model;
 import ca.ubc.cs304.model.PokemonModel;
 
 public interface MainWindowDelegate {
@@ -13,5 +14,6 @@ public interface MainWindowDelegate {
     public int countPokemonOnWeight(double threshold);
     public double avgPokemonPerRegion();
     public String[] division();
+    public Model[] view(String table);
 }
 

@@ -3,10 +3,7 @@ package ca.ubc.cs304.database;
 import java.sql.*;
 import java.util.ArrayList;
 
-import ca.ubc.cs304.model.PokemonModel;
-import ca.ubc.cs304.model.AbilityModel;
-import ca.ubc.cs304.model.AreaModel;
-import ca.ubc.cs304.model.FoundInModel;
+import ca.ubc.cs304.model.*;
 import oracle.jdbc.proxy.annotation.Pre;
 
 /**
@@ -27,6 +24,75 @@ public class DatabaseConnectionHandler {
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
+    }
+
+    private ArrayList<Model> getPokemonModels(ResultSet rs) {
+        ArrayList<Model> result = new ArrayList<Model>();
+        try {
+            while (rs.next()) {
+                PokemonModel model = new PokemonModel(rs.getInt("pokemon_Id"),
+                        rs.getString("name"),
+                        rs.getDouble("weight"),
+                        rs.getInt("attack"),
+                        rs.getInt("special_defense"),
+                        rs.getInt("speed"),
+                        rs.getInt("hp"),
+                        rs.getInt("defense"),
+                        rs.getInt("special_attack"),
+                        rs.getString("ability_name")
+                );
+                result.add(model);
+            }
+        } catch (Exception e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+        return result;
+    }
+
+    private ArrayList<Model> getAreaModels(ResultSet rs) {
+        ArrayList<Model> result = new ArrayList<Model>();
+        try {
+            while (rs.next()) {
+                AreaModel model = new AreaModel(rs.getString("region"),
+                        rs.getString("location")
+                );
+                result.add(model);
+            }
+        } catch (Exception e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+        return result;
+    }
+
+    private ArrayList<Model> getFoundInModels(ResultSet rs) {
+        ArrayList<Model> result = new ArrayList<Model>();
+        try {
+            while (rs.next()) {
+                FoundInModel model = new FoundInModel(rs.getInt("pokemon_id"),
+                        rs.getString("region"),
+                        rs.getString("location")
+                );
+                result.add(model);
+            }
+        } catch (Exception e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+        return result;
+    }
+
+    private ArrayList<Model> getAbilityModels(ResultSet rs) {
+        ArrayList<Model> result = new ArrayList<Model>();
+        try {
+            while (rs.next()) {
+                AbilityModel model = new AbilityModel(rs.getString("ability_name"),
+                        rs.getString("description")
+                );
+                result.add(model);
+            }
+        } catch (Exception e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+        return result;
     }
 
     /**
@@ -160,7 +226,7 @@ public class DatabaseConnectionHandler {
      *
      */
     public PokemonModel[] delete(int pokemonId) {
-        ArrayList<PokemonModel> result = new ArrayList<PokemonModel>();
+        ArrayList<Model> result = new ArrayList<Model>();
 
         try {
             String query = "DELETE FROM pokemon WHERE pokemon_id = " + Integer.toString(pokemonId);
@@ -177,21 +243,7 @@ public class DatabaseConnectionHandler {
             ps = connection.prepareStatement(getPokemonTable);
             ResultSet rs = ps.executeQuery();
             connection.commit();
-
-            while (rs.next()){
-                PokemonModel model = new PokemonModel(rs.getInt("pokemon_Id"),
-                        rs.getString("name"),
-                        rs.getDouble("weight"),
-                        rs.getInt("attack"),
-                        rs.getInt("special_defense"),
-                        rs.getInt("speed"),
-                        rs.getInt("hp"),
-                        rs.getInt("defense"),
-                        rs.getInt("special_attack"),
-                        rs.getString("ability_name")
-                        );
-                result.add(model);
-            }
+            result = getPokemonModels(rs);
             ps.close();
 
         } catch (SQLException e) {
@@ -210,7 +262,7 @@ public class DatabaseConnectionHandler {
      *
      */
     public PokemonModel[] insertTable(PokemonModel p) {
-        ArrayList<PokemonModel> result = new ArrayList<PokemonModel>();
+        ArrayList<Model> result = new ArrayList<Model>();
 
         try {
             String query = "INSERT INTO pokemon VALUES ("
@@ -235,21 +287,7 @@ public class DatabaseConnectionHandler {
             ps = connection.prepareStatement(getPokemonTable);
             ResultSet rs = ps.executeQuery();
             connection.commit();
-
-            while (rs.next()){
-                PokemonModel model = new PokemonModel(rs.getInt("pokemon_Id"),
-                        rs.getString("name"),
-                        rs.getDouble("weight"),
-                        rs.getInt("attack"),
-                        rs.getInt("special_defense"),
-                        rs.getInt("speed"),
-                        rs.getInt("hp"),
-                        rs.getInt("defense"),
-                        rs.getInt("special_attack"),
-                        rs.getString("ability_name")
-                );
-                result.add(model);
-            }
+            result = getPokemonModels(rs);
             ps.close();
 
         } catch (SQLException e) {
@@ -264,7 +302,7 @@ public class DatabaseConnectionHandler {
      * @param p
      */
     public PokemonModel[] update(PokemonModel p) {
-        ArrayList<PokemonModel> result = new ArrayList<PokemonModel>();
+        ArrayList<Model> result = new ArrayList<Model>();
         try {
             String q = "SELECT * FROM ability where ability_name = '" + p.getAbility_name() + "'";
             PreparedStatement s = connection.prepareStatement(q);
@@ -299,21 +337,7 @@ public class DatabaseConnectionHandler {
                     ps = connection.prepareStatement("SELECT * FROM POKEMON");
                     ResultSet rs = ps.executeQuery();
                     connection.commit();
-
-                    while (rs.next()){
-                        PokemonModel model = new PokemonModel(rs.getInt("pokemon_Id"),
-                                rs.getString("name"),
-                                rs.getDouble("weight"),
-                                rs.getInt("attack"),
-                                rs.getInt("special_defense"),
-                                rs.getInt("speed"),
-                                rs.getInt("hp"),
-                                rs.getInt("defense"),
-                                rs.getInt("special_attack"),
-                                rs.getString("ability_name")
-                        );
-                        result.add(model);
-                    }
+                    result = getPokemonModels(rs);
                     ps.close();
                 } catch (SQLException e) {
                     System.out.println(EXCEPTION_TAG + " " + e.getMessage());
@@ -376,6 +400,36 @@ public class DatabaseConnectionHandler {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
         return result.toArray(new String[result.size()]);
+    }
+
+    public Model[] view(String table) {
+        ArrayList<Model> result = new ArrayList<Model>();
+
+        try {
+            // get the information for updated pokemon table
+            String getPokemonTable = "SELECT * FROM " + table;
+            PreparedStatement ps = connection.prepareStatement(getPokemonTable);
+            ResultSet rs = ps.executeQuery();
+            connection.commit();
+            switch (table.toLowerCase()) {
+                case "pokemon":
+                    result = getPokemonModels(rs);
+                    break;
+                case "area":
+                    result = getAreaModels(rs);
+                    break;
+                case "found_in":
+                    result = getFoundInModels(rs);
+                    break;
+                case "ability":
+                    result = getAbilityModels(rs);
+                    break;
+            }
+            ps.close();
+        } catch (Exception e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+        return result.toArray(new Model[result.size()]);
     }
 
     public void close() {
