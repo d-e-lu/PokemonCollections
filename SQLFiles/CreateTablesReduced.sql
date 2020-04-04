@@ -231,7 +231,7 @@ INSERT INTO found_in VALUES (28, 'Unova', 'Mistralton Cave');
 INSERT INTO found_in VALUES (29, 'Unova', 'Dragonspiral Tower, Ns Castle');
 INSERT INTO found_in VALUES (30, 'Unova', 'Dragonspiral Tower, Ns Castle');
 INSERT INTO found_in VALUES (31, 'Unova', 'Giant Chasm');
-INSERT INTO found_in VALUES (32, 'Kalos', 'Route 2, 3');
+INSERT INTO found_in VALUES (32, 'Kalos', 'Route 2,3');
 INSERT INTO found_in VALUES (33, 'Kalos', 'Route 3, 7');
 INSERT INTO found_in VALUES (34, 'Kalos', 'Route 22, Santalune City');
 INSERT INTO found_in VALUES (35, 'Kalos', 'Route 4, 7');
