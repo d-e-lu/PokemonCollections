@@ -9,7 +9,7 @@ public class DeletePanel extends DefaultPanel {
 
     public DeletePanel(JFrame frame, String resultButtonCommandName) {
         super();
-        loadBg("images//Pokemon2.jpg");
+        loadBg("images/Pokemon2.jpg");
         JLabel pokemonId = new JLabel("Enter pokemon id: ");
         pokemonIdField = new JTextField(TEXT_FIELD_WIDTH);
         int y = 0;

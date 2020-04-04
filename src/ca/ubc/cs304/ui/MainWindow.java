@@ -15,7 +15,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
     private static final int FRAME_HEIGHT = 600;
     private static final int FRAME_WIDTH = 1600;
-    private static final String RESULT_FONT_PATH = "fonts\\Pokemon_Text.ttf";
+    private static final String RESULT_FONT_PATH = "fonts/Pokemon_Text.ttf";
     private static final String WINDOW_TITLE = "Pokemon Collections";
 
     private enum Actions {
@@ -103,13 +103,13 @@ public class MainWindow extends JFrame implements ActionListener {
         tabbedPane = new JTabbedPane();
 
         // Insert and Update panel are shared so need to specify background path
-        insertPanel = new InsertPanel(this, Actions.INSERT.name(), "images//Pokemon1.jpg");
+        insertPanel = new InsertPanel(this, Actions.INSERT.name(), "images/Pokemon1.jpg");
         tabbedPane.addTab(Actions.INSERT.name(), insertPanel);
 
         deletePanel = new DeletePanel(this, Actions.DELETE.name());
         tabbedPane.addTab(Actions.DELETE.name(), deletePanel);
 
-        updatePanel = new InsertPanel(this, Actions.UPDATE.name(),"images//Pokemon3.jpg");
+        updatePanel = new InsertPanel(this, Actions.UPDATE.name(),"images/Pokemon3.jpg");
         tabbedPane.addTab(Actions.UPDATE.name(), updatePanel);
 
         selectPanel = new SelectPanel(this, Actions.SELECT.name());

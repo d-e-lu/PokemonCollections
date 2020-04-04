@@ -8,7 +8,7 @@ public class ViewPanel extends DefaultPanel {
 
     public ViewPanel(JFrame frame, String resultButtonCommandName) {
         super();
-        loadBg("images//Pokemon10.jpg");
+        loadBg("images/Pokemon10.jpg");
         JLabel tableLabel = new JLabel("Enter table: ");
 
         table = new JTextField(TEXT_FIELD_WIDTH);

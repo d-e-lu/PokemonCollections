@@ -12,7 +12,7 @@ public class SelectPanel extends DefaultPanel {
 
     public SelectPanel(JFrame frame, String resultButtonCommandName) {
         super();
-        loadBg("images//Pokemon4.jpg");
+        loadBg("images/Pokemon4.jpg");
         JLabel field1Label = new JLabel("Enter select attribute: ");
         JLabel table1Label = new JLabel("Enter table: ");
         JLabel field2Label = new JLabel("Enter filter attribute: ");
