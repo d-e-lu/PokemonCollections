@@ -14,7 +14,7 @@ public class ViewPanel extends DefaultPanel {
         table = new JTextField(TEXT_FIELD_WIDTH);
 
         int y = 0;
-        addTextAndField(tableLabel, table, c, gb, y++);
+        addTextAndField(tableLabel, table, y++);
         addResultButton(resultButtonCommandName, y, (ActionListener) frame);
     }
     public String getTable() {

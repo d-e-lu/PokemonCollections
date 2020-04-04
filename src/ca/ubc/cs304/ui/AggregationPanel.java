@@ -14,7 +14,7 @@ public class AggregationPanel extends DefaultPanel{
         weightThreshold = new JTextField(TEXT_FIELD_WIDTH);
 
         int y = 0;
-        addTextAndField(fieldLabel, weightThreshold, c, gb, y++);
+        addTextAndField(fieldLabel, weightThreshold, y++);
         addResultButton(resultButtonCommandName, y, (ActionListener) frame);
     }
     public Integer getThreshold() {

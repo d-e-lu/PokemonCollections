@@ -1,7 +1,6 @@
 package ca.ubc.cs304.ui;
 
 import ca.ubc.cs304.model.Model;
-import ca.ubc.cs304.model.PokemonModel;
 
 import javax.swing.*;
 import java.awt.*;

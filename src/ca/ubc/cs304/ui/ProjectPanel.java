@@ -18,8 +18,8 @@ public class ProjectPanel extends DefaultPanel{
         table = new JTextField(TEXT_FIELD_WIDTH);
 
         int y = 0;
-        addTextAndField(fieldLabel, field, c, gb, y++);
-        addTextAndField(tableLabel, table, c, gb, y++);
+        addTextAndField(fieldLabel, field, y++);
+        addTextAndField(tableLabel, table, y++);
         addResultButton(resultButtonCommandName, y, (ActionListener) frame);
     }
     public String getField() {

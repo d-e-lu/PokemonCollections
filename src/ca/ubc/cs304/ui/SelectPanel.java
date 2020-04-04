@@ -1,7 +1,5 @@
 package ca.ubc.cs304.ui;
 
-import ca.ubc.cs304.model.PokemonModel;
-
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
@@ -26,10 +24,10 @@ public class SelectPanel extends DefaultPanel {
         thresholdField = new JTextField(TEXT_FIELD_WIDTH);
 
         int y = 0;
-        addTextAndField(field1Label, field1, c, gb, y++);
-        addTextAndField(table1Label, table1Field, c, gb, y++);
-        addTextAndField(field2Label, field2, c, gb, y++);
-        addTextAndField(thresholdLabel, thresholdField, c, gb, y++);
+        addTextAndField(field1Label, field1, y++);
+        addTextAndField(table1Label, table1Field, y++);
+        addTextAndField(field2Label, field2, y++);
+        addTextAndField(thresholdLabel, thresholdField, y++);
         addResultButton(resultButtonCommandName, y, (ActionListener) frame);
     }
     public String getField1() {

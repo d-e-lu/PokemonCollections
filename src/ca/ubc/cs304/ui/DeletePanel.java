@@ -13,7 +13,7 @@ public class DeletePanel extends DefaultPanel {
         JLabel pokemonId = new JLabel("Enter pokemon id: ");
         pokemonIdField = new JTextField(TEXT_FIELD_WIDTH);
         int y = 0;
-        addTextAndField(pokemonId, pokemonIdField, c, gb, y++);
+        addTextAndField(pokemonId, pokemonIdField, y++);
         addResultButton(resultButtonCommandName, y, (ActionListener) frame);
     }
 

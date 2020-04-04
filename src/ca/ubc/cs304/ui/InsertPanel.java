@@ -2,11 +2,8 @@ package ca.ubc.cs304.ui;
 
 import ca.ubc.cs304.model.PokemonModel;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 
 public class InsertPanel extends DefaultPanel {
@@ -49,16 +46,16 @@ public class InsertPanel extends DefaultPanel {
         abilityNameField = new JTextField(TEXT_FIELD_WIDTH);
 
         int y = 0;
-        addTextAndField(pokemonId, pokemonIdField, c, gb, y++);
-        addTextAndField(name, nameField, c, gb, y++);
-        addTextAndField(weight, weightField, c, gb, y++);
-        addTextAndField(attack, attackField, c, gb, y++);
-        addTextAndField(specialDefense, specialDefenseField, c, gb, y++);
-        addTextAndField(speed, speedField, c, gb, y++);
-        addTextAndField(hp, hpField, c, gb, y++);
-        addTextAndField(defense, defenseField, c, gb, y++);
-        addTextAndField(specialAttack, specialAttackField, c, gb, y++);
-        addTextAndField(abilityName, abilityNameField, c, gb, y++);
+        addTextAndField(pokemonId, pokemonIdField, y++);
+        addTextAndField(name, nameField, y++);
+        addTextAndField(weight, weightField, y++);
+        addTextAndField(attack, attackField, y++);
+        addTextAndField(specialDefense, specialDefenseField, y++);
+        addTextAndField(speed, speedField, y++);
+        addTextAndField(hp, hpField, y++);
+        addTextAndField(defense, defenseField, y++);
+        addTextAndField(specialAttack, specialAttackField, y++);
+        addTextAndField(abilityName, abilityNameField, y++);
         addResultButton(resultButtonCommandName, y, (ActionListener) frame);
     }
 

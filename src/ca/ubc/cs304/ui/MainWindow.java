@@ -3,27 +3,20 @@ package ca.ubc.cs304.ui;
 import ca.ubc.cs304.delegates.MainWindowDelegate;
 import ca.ubc.cs304.model.Model;
 import ca.ubc.cs304.model.PokemonModel;
-//import com.sun.org.apache.xpath.internal.operations.Div;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class MainWindow extends JFrame implements ActionListener {
 
     private static final int FRAME_HEIGHT = 600;
     private static final int FRAME_WIDTH = 1600;
-    private static final int INVALID_INPUT = Integer.MIN_VALUE;
-    private BufferedReader bufferedReader = null;
-    private static final int EMPTY_INPUT = 0;
-    private static final String WARNING_TAG = "[WARNING]";
-    private static final String EXCEPTION_TAG = "[EXCEPTION]";
+    private static final String RESULT_FONT_PATH = "fonts\\Pokemon_Text.ttf";
+    private static final String WINDOW_TITLE = "Pokemon Collections";
 
     private enum Actions {
         INSERT,
@@ -57,6 +50,10 @@ public class MainWindow extends JFrame implements ActionListener {
     private DivisionPanel divisionPanel;
     private ViewPanel viewPanel;
 
+    public MainWindow() {
+        super(WINDOW_TITLE);
+    }
+
     public static void changeFont ( Component component, Font font )
     {
         component.setFont ( font );
@@ -71,7 +68,7 @@ public class MainWindow extends JFrame implements ActionListener {
     private void createFont() {
         try {
             //create the font to use. Specify the size!
-            font = Font.createFont(Font.TRUETYPE_FONT, new File("fonts\\Pokemon_Text.ttf")).deriveFont(10f);
+            font = Font.createFont(Font.TRUETYPE_FONT, new File(RESULT_FONT_PATH)).deriveFont(10f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             //register the font
             ge.registerFont(font);
@@ -105,6 +102,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
         tabbedPane = new JTabbedPane();
 
+        // Insert and Update panel are shared so need to specify background path
         insertPanel = new InsertPanel(this, Actions.INSERT.name(), "images//Pokemon1.jpg");
         tabbedPane.addTab(Actions.INSERT.name(), insertPanel);
 
@@ -148,7 +146,9 @@ public class MainWindow extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        DefaultPanel panel = null;
         if (e.getActionCommand().equals(Actions.INSERT.name())) {
+            panel = insertPanel;
             PokemonModel p = insertPanel.createPokemonModel();
             if (p != null) {
                 PokemonModel[] result = delegate.insert(p);
@@ -157,6 +157,7 @@ public class MainWindow extends JFrame implements ActionListener {
                 resultPanel.updateResultPanel(this, "Can't select pokemon (can't parse input fields).");
             }
         } else if (e.getActionCommand().equals(Actions.DELETE.name())) {
+            panel = deletePanel;
             Integer pId = deletePanel.deletePokemon();
             if (pId != null) {
                 PokemonModel[] result = delegate.delete(pId);
@@ -165,6 +166,7 @@ public class MainWindow extends JFrame implements ActionListener {
                 System.out.println("Can't delete pokemon.");
             }
         } else if (e.getActionCommand().equals(Actions.UPDATE.name())) {
+            panel = updatePanel;
             PokemonModel p = updatePanel.createPokemonModel();
             if (p != null) {
                 PokemonModel[] result = delegate.update(p);
@@ -173,6 +175,7 @@ public class MainWindow extends JFrame implements ActionListener {
                 System.out.println("Can't update pokemon.");
             }
         } else if (e.getActionCommand().equals(Actions.SELECT.name())) {
+            panel = selectPanel;
             System.out.println("Select");
             String f1 = selectPanel.getField1();
             String f2 = selectPanel.getField2();
@@ -185,17 +188,20 @@ public class MainWindow extends JFrame implements ActionListener {
                 resultPanel.updateResultPanel(this, "Can't select pokemon (can't parse input fields).");
             }
         } else if (e.getActionCommand().equals(Actions.PROJECT.name())) {
+            panel = projectPanel;
             System.out.println("Project");
             String f = projectPanel.getField();
             String t = projectPanel.getTable();
             String[] results = delegate.project(f, t);
             resultPanel.updateResultPanel(this, results);
         } else if (e.getActionCommand().equals(Actions.JOIN.name())) {
+            panel = joinPanel;
             System.out.println("Join");
             String f = joinPanel.getField();
             String[] results = delegate.join(f);
             resultPanel.updateResultPanel(this, results);
         } else if (e.getActionCommand().equals(Actions.AGGREGATION.name())) {
+            panel = aggregationPanel;
             System.out.println("Aggregate");
             Integer t = aggregationPanel.getThreshold();
             if (t != null) {
@@ -205,10 +211,12 @@ public class MainWindow extends JFrame implements ActionListener {
                 System.out.println("Can't aggregate.");
             }
         } else if (e.getActionCommand().equals(Actions.NESTED_AGGREGATION.name())) {
+            panel = nestedAggregationPanel;
             System.out.println("Nested Aggregate");
             double avg = delegate.avgPokemonPerRegion();
             resultPanel.updateResultPanel(this, "Average number of pokemon per region is: " + Double.toString(avg));
         } else if (e.getActionCommand().equals(Actions.DIVISION.name())) {
+            panel = divisionPanel;
             System.out.println("Division");
             String[] results = delegate.division();
             String description = "All pokemon that are in all regions:";
@@ -217,10 +225,15 @@ public class MainWindow extends JFrame implements ActionListener {
             System.arraycopy(results,0, display,1,results.length);
             resultPanel.updateResultPanel(this, display);
         } else if(e.getActionCommand().equals(Actions.VIEW.name())) {
+            panel = viewPanel;
             System.out.println("View");
             String table = viewPanel.getTable();
             Model[] results = delegate.view(table);
             resultPanel.updateResultPanel(this, results);
+        }
+
+        if(panel != null) {
+            panel.clearTextBoxes();
         }
         changeFont(resultPanel,font);
     }

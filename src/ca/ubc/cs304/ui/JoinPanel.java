@@ -9,13 +9,12 @@ public class JoinPanel extends DefaultPanel{
     public JoinPanel(JFrame frame, String resultButtonCommandName) {
         super();
         loadBg("images//Pokemon6.jpg");
-        JLabel label = new JLabel("");
         JLabel fieldLabel = new JLabel("Enter region: ");
 
         regionField = new JTextField(TEXT_FIELD_WIDTH);
 
         int y = 0;
-        addTextAndField(fieldLabel, regionField, c, gb, y++);
+        addTextAndField(fieldLabel, regionField, y++);
         addResultButton(resultButtonCommandName, y, (ActionListener) frame);
     }
     public String getField() {

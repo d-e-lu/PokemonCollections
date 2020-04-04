@@ -7,13 +7,16 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class DefaultPanel extends JPanel {
+public class DefaultPanel extends JPanel{
+
+    private static final String NO_IMAGE_ERROR = "Can't load image.";
+    private static final float FONT_SIZE = 20f;
+    private GridBagLayout gb;
+    private GridBagConstraints c;
+    private JButton result;
+    private BufferedImage bg;
 
     protected static final int TEXT_FIELD_WIDTH = 10;
-    protected GridBagLayout gb;
-    protected GridBagConstraints c;
-    protected JButton result;
-    protected BufferedImage bg;
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -21,14 +24,16 @@ public class DefaultPanel extends JPanel {
         g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
     }
 
-    protected void addTextAndField(JLabel label, JTextField field, GridBagConstraints c, GridBagLayout gb, int y) {
+    protected void addTextAndField(JLabel label, JTextField field, int y) {
         c.gridy = y;
         c.gridx = 0;
         gb.setConstraints(label, c);
+        label.setFont(label.getFont().deriveFont(FONT_SIZE));
         this.add(label);
         c.gridx = 1;
         gb.setConstraints(field, c);
         field.setOpaque(false);
+        field.setFont(field.getFont().deriveFont(FONT_SIZE));
         this.add(field);
     }
 
@@ -38,6 +43,7 @@ public class DefaultPanel extends JPanel {
         c.gridy = y;
         c.gridx = 1;
         gb.setConstraints(result, c);
+        result.setFont(result.getFont().deriveFont(FONT_SIZE));
         this.add(result);
         result.addActionListener(a);
     }
@@ -53,7 +59,16 @@ public class DefaultPanel extends JPanel {
         try {
             bg = ImageIO.read(new File(path));
         } catch (Exception e) {
-            System.out.println("Can't load image.");
+            System.out.println(NO_IMAGE_ERROR);
         }
     }
+
+    protected void clearTextBoxes() {
+        for (Component component : this.getComponents()) {
+            if (component instanceof JTextField) {
+                ((JTextField) component).setText("");
+            }
+        }
+    }
+
 }
