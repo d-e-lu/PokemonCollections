@@ -105,7 +105,6 @@ public class DatabaseConnectionHandler {
      */
     public String[] selectTable(String attribute_to_show, String table, String attribute_to_filter, int threshold) {
         ArrayList<String> result = new ArrayList<String>();
-        result.add(attribute_to_show); // add the attribute name as first element
 
         try {
             String query = "SELECT "+ attribute_to_show + " FROM "+ table +" WHERE "
@@ -189,7 +188,6 @@ public class DatabaseConnectionHandler {
      */
     public String[] division() {
         ArrayList<String> result = new ArrayList<String>();
-        result.add("name"); // add the attribute name as first element
 
         try {
             String query = "Select p.name " +
@@ -382,7 +380,7 @@ public class DatabaseConnectionHandler {
      */
     public String[] joinTable(String region) {
         ArrayList<String> result = new ArrayList<String>();
-
+        result.add("All pokemon in region " + region + ":");
         try {
             String query = "SELECT p.name, f.region " +
                     "FROM pokemon p, found_in f " +

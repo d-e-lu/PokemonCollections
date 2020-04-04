@@ -200,7 +200,7 @@ public class MainWindow extends JFrame implements ActionListener {
             Integer t = aggregationPanel.getThreshold();
             if (t != null) {
                 int results = delegate.countPokemonOnWeight(t);
-                resultPanel.updateResultPanel(this, Integer.toString(results));
+                resultPanel.updateResultPanel(this, "Number of pokemon greater than this weight is: " + Integer.toString(results));
             } else {
                 System.out.println("Can't aggregate.");
             }
