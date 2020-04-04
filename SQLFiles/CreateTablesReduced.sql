@@ -1,4 +1,5 @@
-CREATE TABLE ability (ability_name VARCHAR(20),
+CREATE TABLE ability (
+    ability_name VARCHAR(20),
     description VARCHAR(250),
     PRIMARY KEY (ability_name)
 );
@@ -42,7 +43,8 @@ INSERT INTO ability VALUES ('Prism Armor', 'Reduces damage taken from super-effe
 INSERT INTO ability VALUES ('Water Absorb', 'Heals 1/4 of max HP when hit by a Water-type attack.');
 
 
-CREATE TABLE pokemon (pokemon_id INTEGER,
+CREATE TABLE pokemon (
+    pokemon_id INTEGER,
     name VARCHAR(20) NOT NULL UNIQUE,
     weight FLOAT(25),
     attack INTEGER,
@@ -79,7 +81,7 @@ INSERT INTO pokemon VALUES (20, 'Jigglypuff', 5.5, 45, 25, 20, 115, 20, 45, 'Cut
 INSERT INTO pokemon VALUES (21, 'Togepi', 1.5, 20, 65, 20, 35, 65, 40, 'Hustle');
 INSERT INTO pokemon VALUES (22, 'Eevee', 6.5, 55, 65, 55, 55, 50, 45, 'Adaptability');
 INSERT INTO pokemon VALUES (23, 'Frillish', 33.0, 40, 85, 40, 55, 50, 65, 'Cursed Body');
-INSERT INTO pokemon VALUES (24, 'Vanillite', 5.7, 50, 60, 44, 36, 50, 'Ice Body');
+INSERT INTO pokemon VALUES (24, 'Vanillite', 5.7, 50, 60, 44, 36, 50, 65, 'Ice Body');
 INSERT INTO pokemon VALUES (25, 'Sawsbuck', 92.5, 70, 70, 95, 80, 70, 60, 'Chlorophyll');
 INSERT INTO pokemon VALUES (26, 'Beartic', 260.0, 130, 80, 50, 95, 80, 70, 'Snow Cloak');
 INSERT INTO pokemon VALUES (27, 'Cryogonal', 148.0, 50, 135, 105, 80, 50, 95, 'Levitate');
@@ -106,11 +108,11 @@ INSERT INTO pokemon VALUES (47, 'Necrozma', 230.0, 107, 89, 79, 97,101, 127, 'Pr
 INSERT INTO pokemon VALUES (48, 'Lapras', 220.0, 85, 95, 60, 130, 80, 85, 'Water Absorb');
 INSERT INTO pokemon VALUES (49, 'Ho-oh', 199.0, 130, 154, 90, 106, 90, 110, 'Pressure');
 INSERT INTO pokemon VALUES (50, 'Giratina', 750.0, 100, 120, 90, 150, 120, 100, 'Pressure');
--- INSERT INTO pokemon VALUES (ID, NAME, WEIGHT, ATTACK, SP DEFENSE, SPEED, HP, DEFENSE, SP ATTACK, ABILITY NAME)
 
 
-CREATE TABLE area (region VARCHAR(20),
-    location VARCHAR(40),
+CREATE TABLE area (
+    region VARCHAR(20),
+    location VARCHAR(100),
     PRIMARY KEY (region, location)
 );
 
@@ -166,7 +168,7 @@ INSERT INTO area VALUES ('Sinnoh', 'Turnback Cave');
 CREATE TABLE found_in (
                           pokemon_id INTEGER,
                           region VARCHAR(20),
-                          location VARCHAR(60),
+                          location VARCHAR(100),
                           PRIMARY KEY (pokemon_id, region, location),
                           FOREIGN KEY (pokemon_id) REFERENCES pokemon
                               ON DELETE CASCADE,
@@ -188,7 +190,7 @@ INSERT INTO found_in VALUES (6, 'Kalos', 'Route 2,3');
 INSERT INTO found_in VALUES (6, 'Alola', 'Ten Carat Hill');
 
 INSERT INTO found_in VALUES (7, 'Hoenn', 'Route 105');
-INSERT INTO found_in VALUES (8, 'Kanto', 'Route 24')
+INSERT INTO found_in VALUES (8, 'Kanto', 'Route 24');
 INSERT INTO found_in VALUES (9, 'Hoenn', 'Roaming Hoenn');
 INSERT INTO found_in VALUES (10, 'Hoenn', 'Sky Pillar');
 INSERT INTO found_in VALUES (11, 'Sinnoh', 'Lake Verity');
@@ -216,7 +218,6 @@ INSERT INTO found_in VALUES (22, 'Johto', 'Celadon City');
 INSERT INTO found_in VALUES (22, 'Kanto', 'Cerulean City');
 INSERT INTO found_in VALUES (22, 'Hoenn', 'Safari Zone');
 INSERT INTO found_in VALUES (22, 'Sinnoh', 'Lake Verity');
-INSERT INTO found_in VALUES (22, 'Johto', 'Route 34, 35');
 INSERT INTO found_in VALUES (22, 'Unova', 'Route 4, 17, 18');
 INSERT INTO found_in VALUES (22, 'Kalos', 'Route 2,3');
 INSERT INTO found_in VALUES (22, 'Alola', 'Ten Carat Hill');
