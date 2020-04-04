@@ -135,8 +135,6 @@ public class MainWindow extends JFrame implements ActionListener {
         viewPanel = new ViewPanel(this, Actions.VIEW.name());
         tabbedPane.addTab(Actions.VIEW.name(), viewPanel);
 
-        changeFont(tabbedPane,font);
-
         contentPane.add(tabbedPane);
         contentPane.add(resultPanel);
 
@@ -224,5 +222,6 @@ public class MainWindow extends JFrame implements ActionListener {
             Model[] results = delegate.view(table);
             resultPanel.updateResultPanel(this, results);
         }
+        changeFont(resultPanel,font);
     }
 }
